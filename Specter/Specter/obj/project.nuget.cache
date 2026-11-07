@@ -42,5 +42,15 @@
     "C:\\Users\\mr big\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\8.0.32\\microsoft.netcore.app.host.win-x64.8.0.32.nupkg.sha512",
     "C:\\Users\\mr big\\.nuget\\packages\\microsoft.windows.sdk.net.ref\\10.0.19041.57\\microsoft.windows.sdk.net.ref.10.0.19041.57.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1900",
+      "level": "Warning",
+      "message": "Error occurred while getting package vulnerability data: An attempt was made to access a socket in a way forbidden by its access permissions. (api.nuget.org:443)",
+      "projectPath": "C:\\rock\\Specter\\Specter\\Specter\\Specter.csproj",
+      "warningLevel": 1,
+      "filePath": "C:\\rock\\Specter\\Specter\\Specter\\Specter.csproj",
+      "targetGraphs": []
+    }
+  ]
 }
