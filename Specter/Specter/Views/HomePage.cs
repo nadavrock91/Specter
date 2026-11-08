@@ -48,7 +48,7 @@ public class HomePage : ContentPage
 
     private async void OnLogoutClicked(object? sender, EventArgs e)
     {
-        _authService.Logout();
+        await _authService.Logout();
         await Shell.Current.GoToAsync("//login");
     }
 }

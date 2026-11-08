@@ -6,7 +6,8 @@ namespace Specter.Services;
 public class DatabaseService
 {
     private SQLiteAsyncConnection? _db;
-    private readonly SemaphoreSlim _initLock = new(1, 1);
+    private string? _dbPassword;
+    private static readonly object _initLock = new();
     private bool _isInitialized;
 
     public DatabaseService()
@@ -15,6 +16,50 @@ public class DatabaseService
 
     public static string DatabasePath =>
         Path.Combine(FileSystem.AppDataDirectory, "specter.db");
+
+    public bool HasPassword => !string.IsNullOrEmpty(_dbPassword);
+
+    public void SetPassword(string password)
+    {
+        _dbPassword = password;
+    }
+
+    public string? GetDbPassword() => _dbPassword;
+
+    public async Task<bool> TryOpenWithPasswordAsync(string password)
+    {
+        if (!File.Exists(DatabasePath))
+            return true;
+
+        try
+        {
+            var options = new SQLiteConnectionString(
+                DatabasePath,
+                storeDateTimeAsTicks: false,
+                key: password);
+            var testConn = new SQLiteAsyncConnection(options);
+            await testConn.ExecuteScalarAsync<int>(
+                "SELECT count(*) FROM sqlite_master");
+            await testConn.CloseAsync();
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
+    }
+
+    public async Task CloseConnectionAndClearPasswordAsync()
+    {
+        if (_db != null)
+        {
+            await _db.CloseAsync();
+            _db = null;
+        }
+
+        _isInitialized = false;
+        _dbPassword = null;
+    }
 
     public async Task<ISQLiteAsyncConnection> GetConnectionAsync()
     {
@@ -26,34 +71,33 @@ public class DatabaseService
 
     public async Task InitAsync()
     {
-        if (_isInitialized)
+        if (_isInitialized && _db != null)
             return;
 
-        await _initLock.WaitAsync();
-        try
+        if (string.IsNullOrEmpty(_dbPassword))
+            throw new InvalidOperationException(
+                "Database password not set. Call SetPassword() before opening the database.");
+
+        lock (_initLock)
         {
-            if (_isInitialized)
+            if (_isInitialized && _db != null)
                 return;
 
-            _db = new SQLiteAsyncConnection(
+            var options = new SQLiteConnectionString(
                 DatabasePath,
-                SQLiteOpenFlags.ReadWrite |
-                SQLiteOpenFlags.Create |
-                SQLiteOpenFlags.SharedCache);
-
-            await _db.CreateTableAsync<User>();
-
-            try { await _db.ExecuteAsync("ALTER TABLE users ADD COLUMN PasswordHash BLOB"); } catch { }
-            try { await _db.ExecuteAsync("ALTER TABLE users ADD COLUMN PasswordSalt BLOB"); } catch { }
-            try { await _db.ExecuteAsync("ALTER TABLE users ADD COLUMN DisplayName TEXT NOT NULL DEFAULT ''"); } catch { }
-            try { await _db.ExecuteAsync("ALTER TABLE users ADD COLUMN CreatedAt TEXT"); } catch { }
-
-            _isInitialized = true;
+                storeDateTimeAsTicks: false,
+                key: _dbPassword);
+            _db = new SQLiteAsyncConnection(options);
         }
-        finally
-        {
-            _initLock.Release();
-        }
+
+        await _db.CreateTableAsync<User>();
+
+        try { await _db.ExecuteAsync("ALTER TABLE users ADD COLUMN PasswordHash BLOB"); } catch { }
+        try { await _db.ExecuteAsync("ALTER TABLE users ADD COLUMN PasswordSalt BLOB"); } catch { }
+        try { await _db.ExecuteAsync("ALTER TABLE users ADD COLUMN DisplayName TEXT NOT NULL DEFAULT ''"); } catch { }
+        try { await _db.ExecuteAsync("ALTER TABLE users ADD COLUMN CreatedAt TEXT"); } catch { }
+
+        _isInitialized = true;
     }
 
     public async Task EnsureTableAsync<T>() where T : new()

@@ -1,9 +1,11 @@
 <Solution>
   <Configurations>
     <Platform Name="Any CPU" />
+    <Platform Name="ARM32" />
     <Platform Name="x64" />
   </Configurations>
   <Project Path="Specter/Specter.csproj">
+    <Platform Solution="*|ARM32" Project="ARM32" />
     <Platform Solution="*|x64" Project="x64" />
     <Platform Solution="Debug|Any CPU" Project="x64" />
     <Deploy />

@@ -39,6 +39,19 @@ public class AuthService
             return false;
         }
 
+        if (_db.HasPassword && _db.GetDbPassword() != password)
+            await _db.CloseConnectionAndClearPasswordAsync();
+
+        if (File.Exists(DatabaseService.DatabasePath) &&
+            !await _db.TryOpenWithPasswordAsync(password))
+        {
+            _lastRegisterError =
+                "This database already exists and cannot be opened with that password.";
+            return false;
+        }
+
+        _db.SetPassword(password);
+
         var conn = await _db.GetConnectionAsync();
         var existing = await conn.Table<User>()
             .Where(user => user.Username == username)
@@ -68,6 +81,15 @@ public class AuthService
     {
         username = username?.Trim().ToLowerInvariant() ?? "";
 
+        if (_db.HasPassword && _db.GetDbPassword() != password)
+            await _db.CloseConnectionAndClearPasswordAsync();
+
+        bool canOpen = await _db.TryOpenWithPasswordAsync(password);
+        if (!canOpen)
+            return false;
+
+        _db.SetPassword(password);
+
         var conn = await _db.GetConnectionAsync();
         var user = await conn.Table<User>()
             .Where(candidate => candidate.Username == username)
@@ -77,6 +99,7 @@ public class AuthService
             user.PasswordSalt is not { Length: > 0 } salt ||
             !PasswordHasher.Verify(password, salt, hash))
         {
+            await _db.CloseConnectionAndClearPasswordAsync();
             return false;
         }
 
@@ -86,11 +109,12 @@ public class AuthService
         return true;
     }
 
-    public void Logout()
+    public async Task Logout()
     {
         _currentUser = null;
         SecureStorage.Remove(SessionUserKey);
         SecureStorage.Remove(SessionPasswordKey);
+        await _db.CloseConnectionAndClearPasswordAsync();
     }
 
     public async Task<bool> TryRestoreSessionAsync()
@@ -103,17 +127,23 @@ public class AuthService
             if (string.IsNullOrEmpty(savedUser) || string.IsNullOrEmpty(savedPassword))
                 return false;
 
+            _db.SetPassword(savedPassword);
+
             if (await LoginAsync(savedUser, savedPassword))
                 return true;
 
-            Logout();
+            await _db.CloseConnectionAndClearPasswordAsync();
+            SecureStorage.Remove(SessionUserKey);
+            SecureStorage.Remove(SessionPasswordKey);
             return false;
         }
         catch (Exception ex)
         {
             System.Diagnostics.Debug.WriteLine(
                 $"[Auth.Restore] Failed: {ex.GetType().FullName}: {ex.Message}");
-            Logout();
+            await _db.CloseConnectionAndClearPasswordAsync();
+            SecureStorage.Remove(SessionUserKey);
+            SecureStorage.Remove(SessionPasswordKey);
             return false;
         }
     }

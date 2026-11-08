@@ -66,9 +66,9 @@
               "target": "Package",
               "version": "[8.0.100, )"
             },
-            "SQLitePCLRaw.bundle_green": {
+            "SQLitePCLRaw.bundle_e_sqlcipher": {
               "target": "Package",
-              "version": "[2.1.6, )"
+              "version": "[2.1.11, )"
             },
             "sqlite-net-pcl": {
               "target": "Package",
@@ -117,11 +117,6 @@
             }
           },
           "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.402/PortableRuntimeIdentifierGraph.json"
-        }
-      },
-      "runtimes": {
-        "win-x64": {
-          "#import": []
         }
       }
     }
