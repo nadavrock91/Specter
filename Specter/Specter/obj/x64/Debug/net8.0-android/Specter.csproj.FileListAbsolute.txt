@@ -1,6 +1,0 @@
-C:\rock\Specter\Specter\Specter\obj\x64\Debug\net8.0-android\Specter.csproj.AssemblyReference.cache
-C:\rock\Specter\Specter\Specter\obj\x64\Debug\net8.0-android\Specter.GeneratedMSBuildEditorConfig.editorconfig
-C:\rock\Specter\Specter\Specter\obj\x64\Debug\net8.0-android\Specter.AssemblyInfoInputs.cache
-C:\rock\Specter\Specter\Specter\obj\x64\Debug\net8.0-android\Specter.AssemblyInfo.cs
-C:\rock\Specter\Specter\Specter\obj\x64\Debug\net8.0-android\Specter.csproj.CoreCompileInputs.cache
-C:\rock\Specter\Specter\Specter\obj\x64\Debug\net8.0-android\Specter.sourcelink.json
