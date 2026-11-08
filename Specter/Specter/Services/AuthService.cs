@@ -9,12 +9,14 @@ public class AuthService
     public const string SessionPasswordKey = "specter_session_password";
 
     private readonly DatabaseService _db;
+    private readonly ClientDatabaseService _clientDb;
     private User? _currentUser;
     private string _lastRegisterError = "";
 
-    public AuthService(DatabaseService db)
+    public AuthService(DatabaseService db, ClientDatabaseService clientDb)
     {
         _db = db;
+        _clientDb = clientDb;
     }
 
     public User? CurrentUser => _currentUser;
@@ -51,6 +53,7 @@ public class AuthService
         }
 
         _db.SetPassword(password);
+        _clientDb.SetPassword(password);
 
         var conn = await _db.GetConnectionAsync();
         var existing = await conn.Table<User>()
@@ -89,6 +92,7 @@ public class AuthService
             return false;
 
         _db.SetPassword(password);
+        _clientDb.SetPassword(password);
 
         var conn = await _db.GetConnectionAsync();
         var user = await conn.Table<User>()
@@ -115,6 +119,7 @@ public class AuthService
         SecureStorage.Remove(SessionUserKey);
         SecureStorage.Remove(SessionPasswordKey);
         await _db.CloseConnectionAndClearPasswordAsync();
+        await _clientDb.CloseAndClearAsync();
     }
 
     public async Task<bool> TryRestoreSessionAsync()
@@ -128,6 +133,7 @@ public class AuthService
                 return false;
 
             _db.SetPassword(savedPassword);
+            _clientDb.SetPassword(savedPassword);
 
             if (await LoginAsync(savedUser, savedPassword))
                 return true;

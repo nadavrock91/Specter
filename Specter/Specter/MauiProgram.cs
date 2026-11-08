@@ -21,6 +21,7 @@ namespace Specter
                 });
 
             builder.Services.AddSingleton<DatabaseService>();
+            builder.Services.AddSingleton<ClientDatabaseService>();
             builder.Services.AddSingleton<AuthService>();
             builder.Services.AddSingleton<BackupService>();
             builder.Services.AddTransient<LoginPage>();
