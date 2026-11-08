@@ -10,6 +10,8 @@ public class ClientsPage : ContentPage
     private VerticalStackLayout _listLayout = null!;
     private Entry _searchEntry = null!;
     private List<Client> _clients = new();
+    private bool _isOpeningForm;
+    private bool _isLoggingAttempt;
 
     public ClientsPage(AuthService auth, ClientDatabaseService clientDb)
     {
@@ -116,6 +118,12 @@ public class ClientsPage : ContentPage
     private View BuildClientCard(Client client)
     {
         var details = new VerticalStackLayout { Spacing = 6 };
+        details.Children.Add(new Label
+        {
+            Text = $"Call attempts: {client.CallAttemptCount}",
+            TextColor = Color.FromArgb("#90CAF9"),
+            FontSize = 13
+        });
         details.Children.Add(new HorizontalStackLayout
         {
             Spacing = 8,
@@ -186,6 +194,10 @@ public class ClientsPage : ContentPage
 
     private async Task ShowClientFormAsync(Client? existing)
     {
+        if (_isOpeningForm) return;
+        _isOpeningForm = true;
+        try
+        {
         bool isNew = existing == null;
         var client = existing ?? new Client
         {
@@ -255,6 +267,52 @@ public class ClientsPage : ContentPage
 
         if (!isNew)
         {
+            var attemptLabel = new Label
+            {
+                Text = $"Call attempts: {client.CallAttemptCount}",
+                TextColor = Color.FromArgb("#90CAF9"),
+                FontSize = 16,
+                FontAttributes = FontAttributes.Bold
+            };
+            var logAttemptBtn = new Button
+            {
+                Text = "Log call attempt",
+                BackgroundColor = Color.FromArgb("#1565C0"),
+                TextColor = Colors.White,
+                CornerRadius = 8
+            };
+            layout.Children.Insert(0, attemptLabel);
+            layout.Children.Insert(1, logAttemptBtn);
+            logAttemptBtn.Clicked += async (_, _) =>
+            {
+                if (_isLoggingAttempt) return;
+                _isLoggingAttempt = true;
+                logAttemptBtn.IsEnabled = false;
+                saveBtn.IsEnabled = false;
+                try
+                {
+                    bool confirm = await DisplayAlert("Log call attempt",
+                        "Record one call attempt? Include unanswered calls, busy lines, voicemail, and answered calls.",
+                        "Log attempt", "Cancel");
+                    if (!confirm) return;
+
+                    client.CallAttemptCount = await _clientDb.LogCallAttemptAsync(client.Id, client.Username);
+                    attemptLabel.Text = $"Call attempts: {client.CallAttemptCount}";
+                    await LoadClientsAsync();
+                    await DisplayAlert("Call attempt logged", attemptLabel.Text, "OK");
+                }
+                catch (Exception ex)
+                {
+                    await DisplayAlert("Error", $"Could not log the call attempt: {ex.Message}", "OK");
+                }
+                finally
+                {
+                    logAttemptBtn.IsEnabled = true;
+                    saveBtn.IsEnabled = true;
+                    _isLoggingAttempt = false;
+                }
+            };
+
             var deleteBtn = new Button
             {
                 Text = "Delete Client",
@@ -312,5 +370,10 @@ public class ClientsPage : ContentPage
         };
 
         await Navigation.PushAsync(formPage);
+        }
+        finally
+        {
+            _isOpeningForm = false;
+        }
     }
 }

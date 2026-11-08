@@ -3418,7 +3418,7 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\mr big\\.nuget\\packages": {},
+    "C:\\Users\\mr big\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
@@ -3427,7 +3427,7 @@
       "projectUniqueName": "C:\\rock\\Specter\\Specter\\Specter\\Specter.csproj",
       "projectName": "Specter",
       "projectPath": "C:\\rock\\Specter\\Specter\\Specter\\Specter.csproj",
-      "packagesPath": "C:\\Users\\mr big\\.nuget\\packages",
+      "packagesPath": "C:\\Users\\mr big\\.nuget\\packages\\",
       "outputPath": "C:\\rock\\Specter\\Specter\\Specter\\obj\\",
       "projectStyle": "PackageReference",
       "crossTargeting": true,
@@ -3505,24 +3505,8 @@
         "warn": true,
         "downloadDependencies": [
           {
-            "name": "Microsoft.AspNetCore.App.Ref",
-            "version": "[8.0.32, 8.0.32]"
-          },
-          {
-            "name": "Microsoft.NETCore.App.Host.win-x64",
-            "version": "[8.0.32, 8.0.32]"
-          },
-          {
-            "name": "Microsoft.NETCore.App.Ref",
-            "version": "[8.0.32, 8.0.32]"
-          },
-          {
             "name": "Microsoft.Windows.SDK.NET.Ref",
             "version": "[10.0.19041.57, 10.0.19041.57]"
-          },
-          {
-            "name": "Microsoft.WindowsDesktop.App.Ref",
-            "version": "[8.0.32, 8.0.32]"
           }
         ],
         "frameworkReferences": {
@@ -3533,7 +3517,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.402/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.403/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

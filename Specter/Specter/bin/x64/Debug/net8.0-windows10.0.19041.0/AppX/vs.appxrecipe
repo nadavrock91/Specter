@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <Machine>DESKTOP-59D8EV8</Machine>
+    <Machine>DESKTOP-2VV7U15</Machine>
     <WindowsUser>mr big</WindowsUser>
     <TargetPlatformIdentifier>Windows</TargetPlatformIdentifier>
     <TargetOsVersion>10.0</TargetOsVersion>
@@ -28,21 +28,21 @@
     <AppXManifest Include="C:\rock\Specter\Specter\Specter\bin\x64\Debug\net8.0-windows10.0.19041.0\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2026-11-08T05:06:41.935</Modified>
+      <Modified>2026-11-08T05:47:12.178</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="C:\rock\Specter\Specter\Specter\bin\x64\Debug\net8.0-windows10.0.19041.0\resources.pri">
       <PackagePath>resources.pri</PackagePath>
-      <Modified>2026-11-08T05:06:41.821</Modified>
+      <Modified>2026-11-08T05:43:24.114</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\rock\Specter\Specter\Specter\bin\x64\Debug\net8.0-windows10.0.19041.0\Specter.runtimeconfig.json">
       <PackagePath>Specter.runtimeconfig.json</PackagePath>
-      <Modified>2026-11-08T05:06:41.661</Modified>
+      <Modified>2026-11-08T05:43:23.817</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\rock\Specter\Specter\Specter\bin\x64\Debug\net8.0-windows10.0.19041.0\Specter.dll">
       <PackagePath>Specter.dll</PackagePath>
-      <Modified>2026-11-08T05:06:40.926</Modified>
+      <Modified>2026-11-08T05:43:23.222</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\mr big\.nuget\packages\communitytoolkit.maui\9.0.0\lib\net8.0-windows10.0.19041\CommunityToolkit.Maui.dll">
       <PackagePath>CommunityToolkit.Maui.dll</PackagePath>
@@ -574,11 +574,11 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\rock\Specter\Specter\Specter\bin\x64\Debug\net8.0-windows10.0.19041.0\Specter.deps.json">
       <PackagePath>Specter.deps.json</PackagePath>
-      <Modified>2026-11-08T05:06:41.638</Modified>
+      <Modified>2026-11-08T05:43:23.802</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\rock\Specter\Specter\Specter\obj\x64\Debug\net8.0-windows10.0.19041.0\apphost.exe">
       <PackagePath>Specter.exe</PackagePath>
-      <Modified>2026-11-08T05:06:40.942</Modified>
+      <Modified>2026-11-08T05:43:23.256</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\mr big\.nuget\packages\microsoft.maui.controls.compatibility\8.0.14\lib\net8.0-windows10.0.19041\Microsoft.Maui.Controls.Compatibility.pri">
       <PackagePath>Microsoft.Maui.Controls.Compatibility.pri</PackagePath>
@@ -594,239 +594,239 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\rock\Specter\Specter\Specter\Resources\Raw\AboutAssets.txt">
       <PackagePath>AboutAssets.txt</PackagePath>
-      <Modified>2026-11-07T19:33:19.665</Modified>
+      <Modified>2026-11-08T05:42:16.797</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\rock\Specter\Specter\Specter\obj\x64\Debug\net8.0-windows10.0.19041.0\resizetizer\sp\splashSplashScreen.scale-100.png">
       <PackagePath>splashSplashScreen.scale-100.png</PackagePath>
-      <Modified>2026-11-07T21:07:41.868</Modified>
+      <Modified>2026-11-08T05:42:19.187</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\rock\Specter\Specter\Specter\obj\x64\Debug\net8.0-windows10.0.19041.0\resizetizer\sp\splashSplashScreen.scale-125.png">
       <PackagePath>splashSplashScreen.scale-125.png</PackagePath>
-      <Modified>2026-11-07T21:07:41.879</Modified>
+      <Modified>2026-11-08T05:42:19.187</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\rock\Specter\Specter\Specter\obj\x64\Debug\net8.0-windows10.0.19041.0\resizetizer\sp\splashSplashScreen.scale-150.png">
       <PackagePath>splashSplashScreen.scale-150.png</PackagePath>
-      <Modified>2026-11-07T21:07:41.902</Modified>
+      <Modified>2026-11-08T05:42:19.187</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\rock\Specter\Specter\Specter\obj\x64\Debug\net8.0-windows10.0.19041.0\resizetizer\sp\splashSplashScreen.scale-200.png">
       <PackagePath>splashSplashScreen.scale-200.png</PackagePath>
-      <Modified>2026-11-07T21:07:41.940</Modified>
+      <Modified>2026-11-08T05:42:19.190</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\rock\Specter\Specter\Specter\obj\x64\Debug\net8.0-windows10.0.19041.0\resizetizer\sp\splashSplashScreen.scale-400.png">
       <PackagePath>splashSplashScreen.scale-400.png</PackagePath>
-      <Modified>2026-11-07T21:07:42.084</Modified>
+      <Modified>2026-11-08T05:42:19.190</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\rock\Specter\Specter\Specter\obj\x64\Debug\net8.0-windows10.0.19041.0\resizetizer\f\OpenSans-Regular.ttf">
       <PackagePath>OpenSans-Regular.ttf</PackagePath>
-      <Modified>2026-11-07T19:33:19.660</Modified>
+      <Modified>2026-11-08T05:42:19.158</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\rock\Specter\Specter\Specter\obj\x64\Debug\net8.0-windows10.0.19041.0\resizetizer\f\OpenSans-Semibold.ttf">
       <PackagePath>OpenSans-Semibold.ttf</PackagePath>
-      <Modified>2026-11-07T19:33:19.660</Modified>
+      <Modified>2026-11-08T05:42:19.174</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\rock\Specter\Specter\Specter\obj\x64\Debug\net8.0-windows10.0.19041.0\resizetizer\r\appicon.ico">
       <PackagePath>appicon.ico</PackagePath>
-      <Modified>2026-11-07T21:07:42.771</Modified>
+      <Modified>2026-11-08T05:42:19.174</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\rock\Specter\Specter\Specter\obj\x64\Debug\net8.0-windows10.0.19041.0\resizetizer\r\appiconLargeTile.scale-100.png">
       <PackagePath>appiconLargeTile.scale-100.png</PackagePath>
-      <Modified>2026-11-07T21:07:42.760</Modified>
+      <Modified>2026-11-08T05:42:19.174</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\rock\Specter\Specter\Specter\obj\x64\Debug\net8.0-windows10.0.19041.0\resizetizer\r\appiconLargeTile.scale-125.png">
       <PackagePath>appiconLargeTile.scale-125.png</PackagePath>
-      <Modified>2026-11-07T21:07:42.760</Modified>
+      <Modified>2026-11-08T05:42:19.174</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\rock\Specter\Specter\Specter\obj\x64\Debug\net8.0-windows10.0.19041.0\resizetizer\r\appiconLargeTile.scale-150.png">
       <PackagePath>appiconLargeTile.scale-150.png</PackagePath>
-      <Modified>2026-11-07T21:07:42.760</Modified>
+      <Modified>2026-11-08T05:42:19.174</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\rock\Specter\Specter\Specter\obj\x64\Debug\net8.0-windows10.0.19041.0\resizetizer\r\appiconLargeTile.scale-200.png">
       <PackagePath>appiconLargeTile.scale-200.png</PackagePath>
-      <Modified>2026-11-07T21:07:42.760</Modified>
+      <Modified>2026-11-08T05:42:19.174</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\rock\Specter\Specter\Specter\obj\x64\Debug\net8.0-windows10.0.19041.0\resizetizer\r\appiconLargeTile.scale-400.png">
       <PackagePath>appiconLargeTile.scale-400.png</PackagePath>
-      <Modified>2026-11-07T21:07:42.759</Modified>
+      <Modified>2026-11-08T05:42:19.174</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\rock\Specter\Specter\Specter\obj\x64\Debug\net8.0-windows10.0.19041.0\resizetizer\r\appiconLogo.altform-lightunplated_targetsize-16.png">
       <PackagePath>appiconLogo.altform-lightunplated_targetsize-16.png</PackagePath>
-      <Modified>2026-11-07T21:07:42.767</Modified>
+      <Modified>2026-11-08T05:42:19.174</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\rock\Specter\Specter\Specter\obj\x64\Debug\net8.0-windows10.0.19041.0\resizetizer\r\appiconLogo.altform-lightunplated_targetsize-24.png">
       <PackagePath>appiconLogo.altform-lightunplated_targetsize-24.png</PackagePath>
-      <Modified>2026-11-07T21:07:42.767</Modified>
+      <Modified>2026-11-08T05:42:19.174</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\rock\Specter\Specter\Specter\obj\x64\Debug\net8.0-windows10.0.19041.0\resizetizer\r\appiconLogo.altform-lightunplated_targetsize-256.png">
       <PackagePath>appiconLogo.altform-lightunplated_targetsize-256.png</PackagePath>
-      <Modified>2026-11-07T21:07:42.766</Modified>
+      <Modified>2026-11-08T05:42:19.174</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\rock\Specter\Specter\Specter\obj\x64\Debug\net8.0-windows10.0.19041.0\resizetizer\r\appiconLogo.altform-lightunplated_targetsize-32.png">
       <PackagePath>appiconLogo.altform-lightunplated_targetsize-32.png</PackagePath>
-      <Modified>2026-11-07T21:07:42.766</Modified>
+      <Modified>2026-11-08T05:42:19.174</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\rock\Specter\Specter\Specter\obj\x64\Debug\net8.0-windows10.0.19041.0\resizetizer\r\appiconLogo.altform-lightunplated_targetsize-48.png">
       <PackagePath>appiconLogo.altform-lightunplated_targetsize-48.png</PackagePath>
-      <Modified>2026-11-07T21:07:42.766</Modified>
+      <Modified>2026-11-08T05:42:19.174</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\rock\Specter\Specter\Specter\obj\x64\Debug\net8.0-windows10.0.19041.0\resizetizer\r\appiconLogo.altform-unplated_targetsize-16.png">
       <PackagePath>appiconLogo.altform-unplated_targetsize-16.png</PackagePath>
-      <Modified>2026-11-07T21:07:42.768</Modified>
+      <Modified>2026-11-08T05:42:19.174</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\rock\Specter\Specter\Specter\obj\x64\Debug\net8.0-windows10.0.19041.0\resizetizer\r\appiconLogo.altform-unplated_targetsize-24.png">
       <PackagePath>appiconLogo.altform-unplated_targetsize-24.png</PackagePath>
-      <Modified>2026-11-07T21:07:42.768</Modified>
+      <Modified>2026-11-08T05:42:19.174</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\rock\Specter\Specter\Specter\obj\x64\Debug\net8.0-windows10.0.19041.0\resizetizer\r\appiconLogo.altform-unplated_targetsize-256.png">
       <PackagePath>appiconLogo.altform-unplated_targetsize-256.png</PackagePath>
-      <Modified>2026-11-07T21:07:42.767</Modified>
+      <Modified>2026-11-08T05:42:19.174</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\rock\Specter\Specter\Specter\obj\x64\Debug\net8.0-windows10.0.19041.0\resizetizer\r\appiconLogo.altform-unplated_targetsize-32.png">
       <PackagePath>appiconLogo.altform-unplated_targetsize-32.png</PackagePath>
-      <Modified>2026-11-07T21:07:42.768</Modified>
+      <Modified>2026-11-08T05:42:19.174</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\rock\Specter\Specter\Specter\obj\x64\Debug\net8.0-windows10.0.19041.0\resizetizer\r\appiconLogo.altform-unplated_targetsize-48.png">
       <PackagePath>appiconLogo.altform-unplated_targetsize-48.png</PackagePath>
-      <Modified>2026-11-07T21:07:42.767</Modified>
+      <Modified>2026-11-08T05:42:19.174</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\rock\Specter\Specter\Specter\obj\x64\Debug\net8.0-windows10.0.19041.0\resizetizer\r\appiconLogo.scale-100.png">
       <PackagePath>appiconLogo.scale-100.png</PackagePath>
-      <Modified>2026-11-07T21:07:42.771</Modified>
+      <Modified>2026-11-08T05:42:19.174</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\rock\Specter\Specter\Specter\obj\x64\Debug\net8.0-windows10.0.19041.0\resizetizer\r\appiconLogo.scale-125.png">
       <PackagePath>appiconLogo.scale-125.png</PackagePath>
-      <Modified>2026-11-07T21:07:42.770</Modified>
+      <Modified>2026-11-08T05:42:19.174</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\rock\Specter\Specter\Specter\obj\x64\Debug\net8.0-windows10.0.19041.0\resizetizer\r\appiconLogo.scale-150.png">
       <PackagePath>appiconLogo.scale-150.png</PackagePath>
-      <Modified>2026-11-07T21:07:42.770</Modified>
+      <Modified>2026-11-08T05:42:19.174</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\rock\Specter\Specter\Specter\obj\x64\Debug\net8.0-windows10.0.19041.0\resizetizer\r\appiconLogo.scale-200.png">
       <PackagePath>appiconLogo.scale-200.png</PackagePath>
-      <Modified>2026-11-07T21:07:42.770</Modified>
+      <Modified>2026-11-08T05:42:19.174</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\rock\Specter\Specter\Specter\obj\x64\Debug\net8.0-windows10.0.19041.0\resizetizer\r\appiconLogo.scale-400.png">
       <PackagePath>appiconLogo.scale-400.png</PackagePath>
-      <Modified>2026-11-07T21:07:42.770</Modified>
+      <Modified>2026-11-08T05:42:19.174</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\rock\Specter\Specter\Specter\obj\x64\Debug\net8.0-windows10.0.19041.0\resizetizer\r\appiconLogo.targetsize-16.png">
       <PackagePath>appiconLogo.targetsize-16.png</PackagePath>
-      <Modified>2026-11-07T21:07:42.769</Modified>
+      <Modified>2026-11-08T05:42:19.174</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\rock\Specter\Specter\Specter\obj\x64\Debug\net8.0-windows10.0.19041.0\resizetizer\r\appiconLogo.targetsize-24.png">
       <PackagePath>appiconLogo.targetsize-24.png</PackagePath>
-      <Modified>2026-11-07T21:07:42.769</Modified>
+      <Modified>2026-11-08T05:42:19.174</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\rock\Specter\Specter\Specter\obj\x64\Debug\net8.0-windows10.0.19041.0\resizetizer\r\appiconLogo.targetsize-256.png">
       <PackagePath>appiconLogo.targetsize-256.png</PackagePath>
-      <Modified>2026-11-07T21:07:42.768</Modified>
+      <Modified>2026-11-08T05:42:19.174</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\rock\Specter\Specter\Specter\obj\x64\Debug\net8.0-windows10.0.19041.0\resizetizer\r\appiconLogo.targetsize-32.png">
       <PackagePath>appiconLogo.targetsize-32.png</PackagePath>
-      <Modified>2026-11-07T21:07:42.769</Modified>
+      <Modified>2026-11-08T05:42:19.174</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\rock\Specter\Specter\Specter\obj\x64\Debug\net8.0-windows10.0.19041.0\resizetizer\r\appiconLogo.targetsize-48.png">
       <PackagePath>appiconLogo.targetsize-48.png</PackagePath>
-      <Modified>2026-11-07T21:07:42.769</Modified>
+      <Modified>2026-11-08T05:42:19.174</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\rock\Specter\Specter\Specter\obj\x64\Debug\net8.0-windows10.0.19041.0\resizetizer\r\appiconMediumTile.scale-100.png">
       <PackagePath>appiconMediumTile.scale-100.png</PackagePath>
-      <Modified>2026-11-07T21:07:42.763</Modified>
+      <Modified>2026-11-08T05:42:19.174</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\rock\Specter\Specter\Specter\obj\x64\Debug\net8.0-windows10.0.19041.0\resizetizer\r\appiconMediumTile.scale-125.png">
       <PackagePath>appiconMediumTile.scale-125.png</PackagePath>
-      <Modified>2026-11-07T21:07:42.763</Modified>
+      <Modified>2026-11-08T05:42:19.180</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\rock\Specter\Specter\Specter\obj\x64\Debug\net8.0-windows10.0.19041.0\resizetizer\r\appiconMediumTile.scale-150.png">
       <PackagePath>appiconMediumTile.scale-150.png</PackagePath>
-      <Modified>2026-11-07T21:07:42.762</Modified>
+      <Modified>2026-11-08T05:42:19.180</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\rock\Specter\Specter\Specter\obj\x64\Debug\net8.0-windows10.0.19041.0\resizetizer\r\appiconMediumTile.scale-200.png">
       <PackagePath>appiconMediumTile.scale-200.png</PackagePath>
-      <Modified>2026-11-07T21:07:42.762</Modified>
+      <Modified>2026-11-08T05:42:19.180</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\rock\Specter\Specter\Specter\obj\x64\Debug\net8.0-windows10.0.19041.0\resizetizer\r\appiconMediumTile.scale-400.png">
       <PackagePath>appiconMediumTile.scale-400.png</PackagePath>
-      <Modified>2026-11-07T21:07:42.762</Modified>
+      <Modified>2026-11-08T05:42:19.180</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\rock\Specter\Specter\Specter\obj\x64\Debug\net8.0-windows10.0.19041.0\resizetizer\r\appiconSmallTile.scale-100.png">
       <PackagePath>appiconSmallTile.scale-100.png</PackagePath>
-      <Modified>2026-11-07T21:07:42.764</Modified>
+      <Modified>2026-11-08T05:42:19.180</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\rock\Specter\Specter\Specter\obj\x64\Debug\net8.0-windows10.0.19041.0\resizetizer\r\appiconSmallTile.scale-125.png">
       <PackagePath>appiconSmallTile.scale-125.png</PackagePath>
-      <Modified>2026-11-07T21:07:42.764</Modified>
+      <Modified>2026-11-08T05:42:19.180</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\rock\Specter\Specter\Specter\obj\x64\Debug\net8.0-windows10.0.19041.0\resizetizer\r\appiconSmallTile.scale-150.png">
       <PackagePath>appiconSmallTile.scale-150.png</PackagePath>
-      <Modified>2026-11-07T21:07:42.764</Modified>
+      <Modified>2026-11-08T05:42:19.180</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\rock\Specter\Specter\Specter\obj\x64\Debug\net8.0-windows10.0.19041.0\resizetizer\r\appiconSmallTile.scale-200.png">
       <PackagePath>appiconSmallTile.scale-200.png</PackagePath>
-      <Modified>2026-11-07T21:07:42.763</Modified>
+      <Modified>2026-11-08T05:42:19.180</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\rock\Specter\Specter\Specter\obj\x64\Debug\net8.0-windows10.0.19041.0\resizetizer\r\appiconSmallTile.scale-400.png">
       <PackagePath>appiconSmallTile.scale-400.png</PackagePath>
-      <Modified>2026-11-07T21:07:42.763</Modified>
+      <Modified>2026-11-08T05:42:19.180</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\rock\Specter\Specter\Specter\obj\x64\Debug\net8.0-windows10.0.19041.0\resizetizer\r\appiconStoreLogo.scale-100.png">
       <PackagePath>appiconStoreLogo.scale-100.png</PackagePath>
-      <Modified>2026-11-07T21:07:42.765</Modified>
+      <Modified>2026-11-08T05:42:19.180</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\rock\Specter\Specter\Specter\obj\x64\Debug\net8.0-windows10.0.19041.0\resizetizer\r\appiconStoreLogo.scale-125.png">
       <PackagePath>appiconStoreLogo.scale-125.png</PackagePath>
-      <Modified>2026-11-07T21:07:42.765</Modified>
+      <Modified>2026-11-08T05:42:19.180</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\rock\Specter\Specter\Specter\obj\x64\Debug\net8.0-windows10.0.19041.0\resizetizer\r\appiconStoreLogo.scale-150.png">
       <PackagePath>appiconStoreLogo.scale-150.png</PackagePath>
-      <Modified>2026-11-07T21:07:42.765</Modified>
+      <Modified>2026-11-08T05:42:19.180</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\rock\Specter\Specter\Specter\obj\x64\Debug\net8.0-windows10.0.19041.0\resizetizer\r\appiconStoreLogo.scale-200.png">
       <PackagePath>appiconStoreLogo.scale-200.png</PackagePath>
-      <Modified>2026-11-07T21:07:42.765</Modified>
+      <Modified>2026-11-08T05:42:19.180</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\rock\Specter\Specter\Specter\obj\x64\Debug\net8.0-windows10.0.19041.0\resizetizer\r\appiconStoreLogo.scale-400.png">
       <PackagePath>appiconStoreLogo.scale-400.png</PackagePath>
-      <Modified>2026-11-07T21:07:42.764</Modified>
+      <Modified>2026-11-08T05:42:19.180</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\rock\Specter\Specter\Specter\obj\x64\Debug\net8.0-windows10.0.19041.0\resizetizer\r\appiconWideTile.scale-100.png">
       <PackagePath>appiconWideTile.scale-100.png</PackagePath>
-      <Modified>2026-11-07T21:07:42.762</Modified>
+      <Modified>2026-11-08T05:42:19.180</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\rock\Specter\Specter\Specter\obj\x64\Debug\net8.0-windows10.0.19041.0\resizetizer\r\appiconWideTile.scale-125.png">
       <PackagePath>appiconWideTile.scale-125.png</PackagePath>
-      <Modified>2026-11-07T21:07:42.761</Modified>
+      <Modified>2026-11-08T05:42:19.180</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\rock\Specter\Specter\Specter\obj\x64\Debug\net8.0-windows10.0.19041.0\resizetizer\r\appiconWideTile.scale-150.png">
       <PackagePath>appiconWideTile.scale-150.png</PackagePath>
-      <Modified>2026-11-07T21:07:42.761</Modified>
+      <Modified>2026-11-08T05:42:19.180</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\rock\Specter\Specter\Specter\obj\x64\Debug\net8.0-windows10.0.19041.0\resizetizer\r\appiconWideTile.scale-200.png">
       <PackagePath>appiconWideTile.scale-200.png</PackagePath>
-      <Modified>2026-11-07T21:07:42.761</Modified>
+      <Modified>2026-11-08T05:42:19.180</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\rock\Specter\Specter\Specter\obj\x64\Debug\net8.0-windows10.0.19041.0\resizetizer\r\appiconWideTile.scale-400.png">
       <PackagePath>appiconWideTile.scale-400.png</PackagePath>
-      <Modified>2026-11-07T21:07:42.761</Modified>
+      <Modified>2026-11-08T05:42:19.180</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\rock\Specter\Specter\Specter\obj\x64\Debug\net8.0-windows10.0.19041.0\resizetizer\r\dotnet_bot.scale-100.png">
       <PackagePath>dotnet_bot.scale-100.png</PackagePath>
-      <Modified>2026-11-07T21:07:42.772</Modified>
+      <Modified>2026-11-08T05:42:19.180</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\rock\Specter\Specter\Specter\obj\x64\Debug\net8.0-windows10.0.19041.0\resizetizer\r\dotnet_bot.scale-125.png">
       <PackagePath>dotnet_bot.scale-125.png</PackagePath>
-      <Modified>2026-11-07T21:07:42.772</Modified>
+      <Modified>2026-11-08T05:42:19.180</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\rock\Specter\Specter\Specter\obj\x64\Debug\net8.0-windows10.0.19041.0\resizetizer\r\dotnet_bot.scale-150.png">
       <PackagePath>dotnet_bot.scale-150.png</PackagePath>
-      <Modified>2026-11-07T21:07:42.772</Modified>
+      <Modified>2026-11-08T05:42:19.180</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\rock\Specter\Specter\Specter\obj\x64\Debug\net8.0-windows10.0.19041.0\resizetizer\r\dotnet_bot.scale-200.png">
       <PackagePath>dotnet_bot.scale-200.png</PackagePath>
-      <Modified>2026-11-07T21:07:42.771</Modified>
+      <Modified>2026-11-08T05:42:19.180</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\rock\Specter\Specter\Specter\obj\x64\Debug\net8.0-windows10.0.19041.0\resizetizer\r\dotnet_bot.scale-400.png">
       <PackagePath>dotnet_bot.scale-400.png</PackagePath>
-      <Modified>2026-11-07T21:07:42.771</Modified>
+      <Modified>2026-11-08T05:42:19.187</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>
