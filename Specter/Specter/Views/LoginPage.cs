@@ -5,6 +5,7 @@ namespace Specter.Views;
 public class LoginPage : ContentPage
 {
     private readonly AuthService _auth;
+    private readonly BackupService _backup;
     private Entry _usernameEntry = null!;
     private Entry _passwordEntry = null!;
     private CheckBox _rememberCheckBox = null!;
@@ -12,12 +13,14 @@ public class LoginPage : ContentPage
     private Button _btnTestDev = null!;
     private bool _isRestoring;
 
-    public LoginPage(AuthService authService)
+    public LoginPage(AuthService authService, BackupService backup)
     {
         _auth = authService;
+        _backup = backup;
         Title = "Login";
         BackgroundColor = Color.FromArgb("#1A1A2E");
         BuildUI();
+        ConfigureContextActions();
     }
 
     private void BuildUI()
@@ -208,6 +211,106 @@ public class LoginPage : ContentPage
     {
         _errorLabel.Text = message;
         _errorLabel.IsVisible = true;
+    }
+
+    private void ConfigureContextActions()
+    {
+#if WINDOWS
+        HandlerChanged += (_, _) => ConfigureWindowsContextMenu();
+#elif ANDROID
+        HandlerChanged += (_, _) => ConfigureAndroidLongPress();
+#endif
+    }
+
+#if WINDOWS
+    private void ConfigureWindowsContextMenu()
+    {
+        if (Handler?.PlatformView is not Microsoft.UI.Xaml.FrameworkElement nativeView)
+            return;
+
+        var menu = new Microsoft.UI.Xaml.Controls.MenuFlyout();
+        var openDataFolderItem = new Microsoft.UI.Xaml.Controls.MenuFlyoutItem
+        {
+            Text = "Open Data Folder"
+        };
+        openDataFolderItem.Click += (_, _) => OpenDataFolder();
+
+        var manualBackupItem = new Microsoft.UI.Xaml.Controls.MenuFlyoutItem
+        {
+            Text = "Manual Backup"
+        };
+        manualBackupItem.Click += async (_, _) => await ManualBackupAsync();
+
+        menu.Items.Add(openDataFolderItem);
+        menu.Items.Add(manualBackupItem);
+        nativeView.ContextFlyout = menu;
+    }
+#elif ANDROID
+    private Android.Views.View? _androidLongPressView;
+
+    private void ConfigureAndroidLongPress()
+    {
+        if (_androidLongPressView != null ||
+            Handler?.PlatformView is not Android.Views.View nativeView)
+        {
+            return;
+        }
+
+        _androidLongPressView = nativeView;
+        nativeView.LongClickable = true;
+        nativeView.LongClick += OnAndroidLongClick;
+    }
+
+    private async void OnAndroidLongClick(object? sender, Android.Views.View.LongClickEventArgs e)
+    {
+        e.Handled = true;
+        await ShowContextMenuAsync();
+    }
+
+    private async Task ShowContextMenuAsync()
+    {
+        string? action = await DisplayActionSheet(
+            "Options",
+            "Cancel",
+            null,
+            "Open Data Folder",
+            "Manual Backup");
+
+        switch (action)
+        {
+            case "Open Data Folder":
+                OpenDataFolder();
+                break;
+            case "Manual Backup":
+                await ManualBackupAsync();
+                break;
+        }
+    }
+#endif
+
+    private void OpenDataFolder()
+    {
+#if WINDOWS
+        try
+        {
+            string folder = FileSystem.AppDataDirectory;
+            System.Diagnostics.Process.Start("explorer.exe", folder);
+        }
+        catch (Exception ex)
+        {
+            DisplayAlert("Error", ex.Message, "OK");
+        }
+#else
+        DisplayAlert("Info", $"Data folder:\n{FileSystem.AppDataDirectory}", "OK");
+#endif
+    }
+
+    private async Task ManualBackupAsync()
+    {
+        var result = await _backup.ManualBackupAsync();
+        await DisplayAlert(
+            result.success ? "Backup Complete" : "Backup Failed",
+            result.message, "OK");
     }
 
 #if DEBUG

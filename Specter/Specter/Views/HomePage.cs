@@ -5,11 +5,13 @@ namespace Specter.Views;
 public class HomePage : ContentPage
 {
     private readonly AuthService _authService;
+    private readonly BackupService _backup;
     private readonly Label _welcomeLabel;
 
-    public HomePage(AuthService authService)
+    public HomePage(AuthService authService, BackupService backup)
     {
         _authService = authService;
+        _backup = backup;
         Title = "Home";
 
         _welcomeLabel = new Label
@@ -40,14 +42,16 @@ public class HomePage : ContentPage
         };
     }
 
-    protected override void OnAppearing()
+    protected override async void OnAppearing()
     {
         base.OnAppearing();
         _welcomeLabel.Text = $"Welcome, {_authService.CurrentUsername}";
+        await _backup.AutoBackupAsync("login");
     }
 
     private async void OnLogoutClicked(object? sender, EventArgs e)
     {
+        await _backup.AutoBackupAsync("logout");
         await _authService.Logout();
         await Shell.Current.GoToAsync("//login");
     }
