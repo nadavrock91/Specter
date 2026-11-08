@@ -26,6 +26,7 @@ namespace Specter
             builder.Services.AddSingleton<BackupService>();
             builder.Services.AddTransient<LoginPage>();
             builder.Services.AddTransient<HomePage>();
+            builder.Services.AddTransient<ClientsPage>();
 
 #if DEBUG
     		builder.Logging.AddDebug();

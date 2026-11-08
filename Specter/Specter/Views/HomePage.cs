@@ -6,12 +6,17 @@ public class HomePage : ContentPage
 {
     private readonly AuthService _authService;
     private readonly BackupService _backup;
+    private readonly ClientDatabaseService _clientDb;
     private readonly Label _welcomeLabel;
 
-    public HomePage(AuthService authService, BackupService backup)
+    public HomePage(
+        AuthService authService,
+        BackupService backup,
+        ClientDatabaseService clientDb)
     {
         _authService = authService;
         _backup = backup;
+        _clientDb = clientDb;
         Title = "Home";
 
         _welcomeLabel = new Label
@@ -23,6 +28,19 @@ public class HomePage : ContentPage
 
         var logoutButton = new Button { Text = "Logout" };
         logoutButton.Clicked += OnLogoutClicked;
+
+        var clientsBtn = new Button
+        {
+            Text = " Clients",
+            BackgroundColor = Color.FromArgb("#1565C0"),
+            TextColor = Colors.White,
+            CornerRadius = 8,
+            HeightRequest = 48,
+            Margin = new Thickness(0, 0, 0, 8)
+        };
+        clientsBtn.Clicked += async (_, _) =>
+            await Navigation.PushAsync(
+                new ClientsPage(_authService, _clientDb));
 
         Content = new VerticalStackLayout
         {
@@ -37,6 +55,7 @@ public class HomePage : ContentPage
                     Text = "Sales tools coming soon",
                     HorizontalTextAlignment = TextAlignment.Center
                 },
+                clientsBtn,
                 logoutButton
             }
         };

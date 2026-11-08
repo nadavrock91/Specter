@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Specter")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3f1530b3d2b2723869834d2e9266ece998a43a63")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1b04e83e8821d216ccd66e4186836b0ca30d3ee2")]
 [assembly: System.Reflection.AssemblyProductAttribute("Specter")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Specter")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
