@@ -17,16 +17,17 @@ public class ClientsPage : ContentPage
     {
         _auth = auth;
         _clientDb = clientDb;
-        Title = "Clients";
+        Title = AppStrings.ClientsTitle;
         BackgroundColor = Color.FromArgb("#1A1A2E");
         BuildUI();
+        AppStrings.LanguageChanged += ApplyStrings;
     }
 
     private void BuildUI()
     {
         _searchEntry = new Entry
         {
-            Placeholder = "Search...",
+            Placeholder = AppStrings.SearchPlaceholder,
             BackgroundColor = Color.FromArgb("#2A2A3E"),
             TextColor = Colors.White,
             PlaceholderColor = Color.FromArgb("#888"),
@@ -36,7 +37,7 @@ public class ClientsPage : ContentPage
 
         var addButton = new Button
         {
-            Text = "＋ Add",
+            Text = AppStrings.AddBtn,
             BackgroundColor = Color.FromArgb("#1565C0"),
             TextColor = Colors.White,
             WidthRequest = 80
@@ -104,7 +105,7 @@ public class ClientsPage : ContentPage
         {
             _listLayout.Children.Add(new Label
             {
-                Text = "No clients yet.",
+                Text = AppStrings.NoClients,
                 TextColor = Color.FromArgb("#888"),
                 HorizontalOptions = LayoutOptions.Center
             });
@@ -120,7 +121,7 @@ public class ClientsPage : ContentPage
         var details = new VerticalStackLayout { Spacing = 6 };
         details.Children.Add(new Label
         {
-            Text = $"Call attempts: {client.CallAttemptCount}",
+            Text = AppStrings.CallAttempts(client.CallAttemptCount),
             TextColor = Color.FromArgb("#90CAF9"),
             FontSize = 13
         });
@@ -207,7 +208,7 @@ public class ClientsPage : ContentPage
         var nameEntry = new Entry
         {
             Text = client.Name,
-            Placeholder = "Name",
+            Placeholder = AppStrings.NamePlaceholder,
             BackgroundColor = Color.FromArgb("#2A2A3E"),
             TextColor = Colors.White,
             PlaceholderColor = Color.FromArgb("#888")
@@ -216,7 +217,7 @@ public class ClientsPage : ContentPage
         var phoneEntry = new Entry
         {
             Text = client.PhoneNumber,
-            Placeholder = "Phone number",
+            Placeholder = AppStrings.PhonePlaceholder,
             Keyboard = Keyboard.Telephone,
             BackgroundColor = Color.FromArgb("#2A2A3E"),
             TextColor = Colors.White,
@@ -226,7 +227,7 @@ public class ClientsPage : ContentPage
         var clientNumEntry = new Entry
         {
             Text = client.ClientNumber,
-            Placeholder = "Client number",
+            Placeholder = AppStrings.ClientNumPlaceholder,
             BackgroundColor = Color.FromArgb("#2A2A3E"),
             TextColor = Colors.White,
             PlaceholderColor = Color.FromArgb("#888")
@@ -235,7 +236,7 @@ public class ClientsPage : ContentPage
         var notesEditor = new Editor
         {
             Text = client.Notes,
-            Placeholder = "Notes",
+            Placeholder = AppStrings.NotesPlaceholder,
             BackgroundColor = Color.FromArgb("#2A2A3E"),
             TextColor = Colors.White,
             PlaceholderColor = Color.FromArgb("#888"),
@@ -245,7 +246,7 @@ public class ClientsPage : ContentPage
 
         var saveBtn = new Button
         {
-            Text = isNew ? "Add Client" : "Save",
+            Text = isNew ? AppStrings.AddClientTitle : AppStrings.Save,
             BackgroundColor = Color.FromArgb("#1565C0"),
             TextColor = Colors.White,
             CornerRadius = 8
@@ -269,14 +270,14 @@ public class ClientsPage : ContentPage
         {
             var attemptLabel = new Label
             {
-                Text = $"Call attempts: {client.CallAttemptCount}",
+                Text = AppStrings.CallAttempts(client.CallAttemptCount),
                 TextColor = Color.FromArgb("#90CAF9"),
                 FontSize = 16,
                 FontAttributes = FontAttributes.Bold
             };
             var logAttemptBtn = new Button
             {
-                Text = "Log call attempt",
+                Text = AppStrings.LogCallBtn,
                 BackgroundColor = Color.FromArgb("#1565C0"),
                 TextColor = Colors.White,
                 CornerRadius = 8
@@ -291,19 +292,19 @@ public class ClientsPage : ContentPage
                 saveBtn.IsEnabled = false;
                 try
                 {
-                    bool confirm = await DisplayAlert("Log call attempt",
-                        "Record one call attempt? Include unanswered calls, busy lines, voicemail, and answered calls.",
-                        "Log attempt", "Cancel");
+                    bool confirm = await DisplayAlert(AppStrings.LogCallTitle,
+                        AppStrings.LogCallMsg,
+                        AppStrings.LogAttempt, AppStrings.Cancel);
                     if (!confirm) return;
 
                     client.CallAttemptCount = await _clientDb.LogCallAttemptAsync(client.Id, client.Username);
-                    attemptLabel.Text = $"Call attempts: {client.CallAttemptCount}";
+                    attemptLabel.Text = AppStrings.CallAttempts(client.CallAttemptCount);
                     await LoadClientsAsync();
-                    await DisplayAlert("Call attempt logged", attemptLabel.Text, "OK");
+                    await DisplayAlert(AppStrings.CallLogged, attemptLabel.Text, AppStrings.Ok);
                 }
                 catch (Exception ex)
                 {
-                    await DisplayAlert("Error", $"Could not log the call attempt: {ex.Message}", "OK");
+                    await DisplayAlert(AppStrings.Error, $"Could not log the call attempt: {ex.Message}", AppStrings.Ok);
                 }
                 finally
                 {
@@ -315,7 +316,7 @@ public class ClientsPage : ContentPage
 
             var deleteBtn = new Button
             {
-                Text = "Delete Client",
+                Text = AppStrings.DeleteClient,
                 BackgroundColor = Color.FromArgb("#B71C1C"),
                 TextColor = Colors.White,
                 CornerRadius = 8
@@ -324,10 +325,10 @@ public class ClientsPage : ContentPage
             deleteBtn.Clicked += async (_, _) =>
             {
                 bool confirm = await DisplayAlert(
-                    "Delete",
-                    $"Delete {client.Name}?",
-                    "Delete",
-                    "Cancel");
+                    AppStrings.Delete,
+                    AppStrings.DeleteMsg(client.Name),
+                    AppStrings.Delete,
+                    AppStrings.Cancel);
                 if (!confirm) return;
 
                 await _clientDb.DeleteClientAsync(client.Id);
@@ -338,7 +339,7 @@ public class ClientsPage : ContentPage
 
         var formPage = new ContentPage
         {
-            Title = isNew ? "Add Client" : "Edit Client",
+            Title = isNew ? AppStrings.AddClientTitle : AppStrings.EditClientTitle,
             BackgroundColor = Color.FromArgb("#1A1A2E"),
             Content = new ScrollView
             {
@@ -360,20 +361,20 @@ public class ClientsPage : ContentPage
 
             if (string.IsNullOrWhiteSpace(client.Name))
             {
-                await DisplayAlert("Error", "Name is required.", "OK");
+                await DisplayAlert(AppStrings.Error, AppStrings.NameRequired, AppStrings.Ok);
                 return;
             }
 
             // Confirm Phone Number if provided
             if (!string.IsNullOrWhiteSpace(client.PhoneNumber))
             {
-                string confirm = await DisplayPromptAsync("Confirm Phone Number",
-                    "Re-enter the phone number to verify:", "OK", "Cancel",
+                string confirm = await DisplayPromptAsync(AppStrings.ConfirmPhone,
+                    AppStrings.ConfirmPhoneMsg, AppStrings.Ok, AppStrings.Cancel,
                     keyboard: Keyboard.Telephone);
                 if (confirm == null) return; // user cancelled
                 if ((confirm?.Trim() ?? "") != client.PhoneNumber)
                 {
-                    await DisplayAlert("Mismatch", "Phone numbers do not match. Please try again.", "OK");
+                    await DisplayAlert(AppStrings.Mismatch, AppStrings.PhoneMismatchMsg, AppStrings.Ok);
                     return;
                 }
             }
@@ -381,13 +382,13 @@ public class ClientsPage : ContentPage
             // Confirm Client Number if provided
             if (!string.IsNullOrWhiteSpace(client.ClientNumber))
             {
-                string confirmNum = await DisplayPromptAsync("Confirm Client Number",
-                    "Re-enter the client number to verify:", "OK", "Cancel",
+                string confirmNum = await DisplayPromptAsync(AppStrings.ConfirmClientNum,
+                    AppStrings.ConfirmClientNumMsg, AppStrings.Ok, AppStrings.Cancel,
                     keyboard: Keyboard.Numeric);
                 if (confirmNum == null) return; // user cancelled
                 if ((confirmNum?.Trim() ?? "") != client.ClientNumber)
                 {
-                    await DisplayAlert("Mismatch", "Client numbers do not match. Please try again.", "OK");
+                    await DisplayAlert(AppStrings.Mismatch, AppStrings.ClientNumMismatchMsg, AppStrings.Ok);
                     return;
                 }
             }
@@ -403,5 +404,9 @@ public class ClientsPage : ContentPage
         {
             _isOpeningForm = false;
         }
+    }
+    private void ApplyStrings()
+    {
+        Title = AppStrings.ClientsTitle;
     }
 }

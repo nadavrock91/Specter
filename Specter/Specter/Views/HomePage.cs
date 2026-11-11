@@ -8,6 +8,10 @@ public class HomePage : ContentPage
     private readonly BackupService _backup;
     private readonly ClientDatabaseService _clientDb;
     private readonly Label _welcomeLabel;
+    private readonly Label _comingSoonLabel;
+    private readonly Button _logoutButton;
+    private readonly Button _clientsBtn;
+    private readonly Button _langToggleBtn;
 
     public HomePage(
         AuthService authService,
@@ -17,7 +21,6 @@ public class HomePage : ContentPage
         _authService = authService;
         _backup = backup;
         _clientDb = clientDb;
-        Title = "Home";
 
         _welcomeLabel = new Label
         {
@@ -26,21 +29,38 @@ public class HomePage : ContentPage
             HorizontalTextAlignment = TextAlignment.Center
         };
 
-        var logoutButton = new Button { Text = "Logout" };
-        logoutButton.Clicked += OnLogoutClicked;
-
-        var clientsBtn = new Button
+        _comingSoonLabel = new Label
         {
-            Text = " Clients",
+            HorizontalTextAlignment = TextAlignment.Center
+        };
+
+        _logoutButton = new Button();
+        _logoutButton.Clicked += OnLogoutClicked;
+
+        _clientsBtn = new Button
+        {
             BackgroundColor = Color.FromArgb("#1565C0"),
             TextColor = Colors.White,
             CornerRadius = 8,
             HeightRequest = 48,
             Margin = new Thickness(0, 0, 0, 8)
         };
-        clientsBtn.Clicked += async (_, _) =>
+        _clientsBtn.Clicked += async (_, _) =>
             await Navigation.PushAsync(
                 new ClientsPage(_authService, _clientDb));
+
+        _langToggleBtn = new Button
+        {
+            BackgroundColor = Color.FromArgb("#424242"),
+            TextColor = Colors.White,
+            CornerRadius = 8,
+            HeightRequest = 40,
+            Margin = new Thickness(0, 8, 0, 0)
+        };
+        _langToggleBtn.Clicked += (_, _) =>
+        {
+            AppStrings.Toggle();
+        };
 
         Content = new VerticalStackLayout
         {
@@ -50,21 +70,31 @@ public class HomePage : ContentPage
             Children =
             {
                 _welcomeLabel,
-                new Label
-                {
-                    Text = "Sales tools coming soon",
-                    HorizontalTextAlignment = TextAlignment.Center
-                },
-                clientsBtn,
-                logoutButton
+                _comingSoonLabel,
+                _clientsBtn,
+                _logoutButton,
+                _langToggleBtn
             }
         };
+
+        AppStrings.LanguageChanged += ApplyStrings;
+        ApplyStrings();
+    }
+
+    private void ApplyStrings()
+    {
+        Title = AppStrings.HomeTitle;
+        _welcomeLabel.Text = AppStrings.Welcome(_authService.CurrentUsername ?? "");
+        _comingSoonLabel.Text = AppStrings.ComingSoon;
+        _logoutButton.Text = AppStrings.Logout;
+        _clientsBtn.Text = AppStrings.ClientsBtn;
+        _langToggleBtn.Text = AppStrings.ToggleLang;
     }
 
     protected override async void OnAppearing()
     {
         base.OnAppearing();
-        _welcomeLabel.Text = $"Welcome, {_authService.CurrentUsername}";
+        _welcomeLabel.Text = AppStrings.Welcome(_authService.CurrentUsername ?? "");
         await _backup.AutoBackupAsync("login");
     }
 
