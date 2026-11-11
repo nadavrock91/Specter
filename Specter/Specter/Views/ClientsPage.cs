@@ -389,30 +389,33 @@ public class ClientsPage : ContentPage
                 await DisplayAlert(AppStrings.Error, AppStrings.PhoneLengthError, AppStrings.Ok);
                 return;
             }
-            // Only verify if exactly one is filled
-            if (hasPhone && !hasClientNum)
+            if (isNew)
             {
-                string confirm = await DisplayPromptAsync(AppStrings.ConfirmPhone,
-                    AppStrings.ConfirmPhoneMsg, AppStrings.Ok, AppStrings.Cancel,
-                    keyboard: Keyboard.Telephone);
-                if (confirm == null) return;
-                if ((confirm?.Trim() ?? "") != client.PhoneNumber)
+                // Only verify if exactly one is filled
+                if (hasPhone && !hasClientNum)
                 {
-                    await DisplayAlert(AppStrings.Mismatch, AppStrings.PhoneMismatchMsg, AppStrings.Ok);
-                    return;
+                    string confirm = await DisplayPromptAsync(AppStrings.ConfirmPhone,
+                        AppStrings.ConfirmPhoneMsg, AppStrings.Ok, AppStrings.Cancel,
+                        keyboard: Keyboard.Telephone);
+                    if (confirm == null) return;
+                    if ((confirm?.Trim() ?? "") != client.PhoneNumber)
+                    {
+                        await DisplayAlert(AppStrings.Mismatch, AppStrings.PhoneMismatchMsg, AppStrings.Ok);
+                        return;
+                    }
                 }
-            }
 
-            if (hasClientNum && !hasPhone)
-            {
-                string confirmNum = await DisplayPromptAsync(AppStrings.ConfirmClientNum,
-                    AppStrings.ConfirmClientNumMsg, AppStrings.Ok, AppStrings.Cancel,
-                    keyboard: Keyboard.Numeric);
-                if (confirmNum == null) return;
-                if ((confirmNum?.Trim() ?? "") != client.ClientNumber)
+                if (hasClientNum && !hasPhone)
                 {
-                    await DisplayAlert(AppStrings.Mismatch, AppStrings.ClientNumMismatchMsg, AppStrings.Ok);
-                    return;
+                    string confirmNum = await DisplayPromptAsync(AppStrings.ConfirmClientNum,
+                        AppStrings.ConfirmClientNumMsg, AppStrings.Ok, AppStrings.Cancel,
+                        keyboard: Keyboard.Numeric);
+                    if (confirmNum == null) return;
+                    if ((confirmNum?.Trim() ?? "") != client.ClientNumber)
+                    {
+                        await DisplayAlert(AppStrings.Mismatch, AppStrings.ClientNumMismatchMsg, AppStrings.Ok);
+                        return;
+                    }
                 }
             }
 
