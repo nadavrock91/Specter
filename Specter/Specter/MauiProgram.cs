@@ -30,7 +30,10 @@ namespace Specter
                 var windowHandle = WinRT.Interop.WindowNative.GetWindowHandle(nativeWindow);
                 var windowId = Microsoft.UI.Win32Interop.GetWindowIdFromWindow(windowHandle);
                 var appWindow = Microsoft.UI.Windowing.AppWindow.GetFromWindowId(windowId);
-                appWindow.Resize(new Windows.Graphics.SizeInt32 { Width = 1200, Height = 800 });
+                if (appWindow.Presenter is Microsoft.UI.Windowing.OverlappedPresenter presenter)
+                {
+                    presenter.Maximize();
+                }
             });
 
             builder.Services.AddSingleton<DatabaseService>();
