@@ -1,5 +1,8 @@
 ﻿using Microsoft.Extensions.Logging;
 
+using Microsoft.Maui.Handlers;
+using Microsoft.UI.Windowing;
+
 using CommunityToolkit.Maui;
 using Specter.Services;
 using Specter.Views;
@@ -19,6 +22,16 @@ namespace Specter
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
+
+            Microsoft.Maui.Handlers.WindowHandler.Mapper.AppendToMapping(nameof(IWindow), (handler, view) =>
+            {
+                var nativeWindow = handler.PlatformView;
+                nativeWindow.Activate();
+                var windowHandle = WinRT.Interop.WindowNative.GetWindowHandle(nativeWindow);
+                var windowId = Microsoft.UI.Win32Interop.GetWindowIdFromWindow(windowHandle);
+                var appWindow = Microsoft.UI.Windowing.AppWindow.GetFromWindowId(windowId);
+                appWindow.Resize(new Windows.Graphics.SizeInt32 { Width = 1200, Height = 800 });
+            });
 
             builder.Services.AddSingleton<DatabaseService>();
             builder.Services.AddSingleton<ClientDatabaseService>();
