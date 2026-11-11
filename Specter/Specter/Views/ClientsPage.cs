@@ -293,15 +293,9 @@ public class ClientsPage : ContentPage
                 saveBtn.IsEnabled = false;
                 try
                 {
-                    bool confirm = await DisplayAlert(AppStrings.LogCallTitle,
-                        AppStrings.LogCallMsg,
-                        AppStrings.LogAttempt, AppStrings.Cancel);
-                    if (!confirm) return;
-
                     client.CallAttemptCount = await _clientDb.LogCallAttemptAsync(client.Id, client.Username);
                     attemptLabel.Text = AppStrings.CallAttempts(client.CallAttemptCount);
                     await LoadClientsAsync();
-                    await DisplayAlert(AppStrings.CallLogged, attemptLabel.Text, AppStrings.Ok);
                 }
                 catch (Exception ex)
                 {
