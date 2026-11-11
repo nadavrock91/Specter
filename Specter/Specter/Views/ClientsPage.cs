@@ -364,6 +364,34 @@ public class ClientsPage : ContentPage
                 return;
             }
 
+            // Confirm Phone Number if provided
+            if (!string.IsNullOrWhiteSpace(client.PhoneNumber))
+            {
+                string confirm = await DisplayPromptAsync("Confirm Phone Number",
+                    "Re-enter the phone number to verify:", "OK", "Cancel",
+                    keyboard: Keyboard.Telephone);
+                if (confirm == null) return; // user cancelled
+                if ((confirm?.Trim() ?? "") != client.PhoneNumber)
+                {
+                    await DisplayAlert("Mismatch", "Phone numbers do not match. Please try again.", "OK");
+                    return;
+                }
+            }
+
+            // Confirm Client Number if provided
+            if (!string.IsNullOrWhiteSpace(client.ClientNumber))
+            {
+                string confirmNum = await DisplayPromptAsync("Confirm Client Number",
+                    "Re-enter the client number to verify:", "OK", "Cancel",
+                    keyboard: Keyboard.Numeric);
+                if (confirmNum == null) return; // user cancelled
+                if ((confirmNum?.Trim() ?? "") != client.ClientNumber)
+                {
+                    await DisplayAlert("Mismatch", "Client numbers do not match. Please try again.", "OK");
+                    return;
+                }
+            }
+
             await _clientDb.SaveClientAsync(client);
             await Navigation.PopAsync();
             await LoadClientsAsync();
