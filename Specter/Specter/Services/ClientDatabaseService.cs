@@ -101,9 +101,9 @@ public class ClientDatabaseService
         }
         // Editing a stale form must never overwrite a separately recorded attempt.
         return await conn.ExecuteAsync(
-            "UPDATE clients SET Name = ?, PhoneNumber = ?, ClientNumber = ?, Notes = ?, UpdatedAt = ? WHERE Id = ? AND Username = ?",
+            "UPDATE clients SET Name = ?, PhoneNumber = ?, ClientNumber = ?, Notes = ?, ScheduledDate = ?, UpdatedAt = ? WHERE Id = ? AND Username = ?",
             client.Name, client.PhoneNumber, client.ClientNumber, client.Notes,
-            client.UpdatedAt, client.Id, client.Username);
+            client.ScheduledDate, client.UpdatedAt, client.Id, client.Username);
     }
 
     public async Task<int> LogCallAttemptAsync(int clientId, string username)

@@ -245,6 +245,25 @@ public class ClientsPage : ContentPage
             AutoSize = EditorAutoSizeOption.Disabled
         };
 
+        var scheduledDateLabel = new Label
+        {
+            Text = AppStrings.ScheduledDate,
+            TextColor = Color.FromArgb("#AAAAAA"),
+            FontSize = 13
+        };
+
+        var scheduledDatePicker = new DatePicker
+        {
+            Format = "dd/MM/yyyy",
+            BackgroundColor = Color.FromArgb("#2A2A3E"),
+            TextColor = Colors.White,
+            MinimumDate = DateTime.Today
+        };
+        if (client.ScheduledDate.HasValue)
+            scheduledDatePicker.Date = client.ScheduledDate.Value;
+        else
+            scheduledDatePicker.Date = DateTime.Today;
+
         var saveBtn = new Button
         {
             Text = isNew ? AppStrings.AddClientTitle : AppStrings.Save,
@@ -263,6 +282,8 @@ public class ClientsPage : ContentPage
                 clientNumEntry,
                 phoneEntry,
                 notesEditor,
+                scheduledDateLabel,
+                scheduledDatePicker,
                 saveBtn
             }
         };
@@ -395,6 +416,7 @@ public class ClientsPage : ContentPage
                 }
             }
 
+            client.ScheduledDate = scheduledDatePicker.Date;
             await _clientDb.SaveClientAsync(client);
             await Navigation.PopAsync();
             await LoadClientsAsync();

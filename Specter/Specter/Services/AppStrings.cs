@@ -22,6 +22,7 @@ public static class AppStrings
     public static string ComingSoon      => Language == AppLanguage.English ? "Sales tools coming soon" : "כלי מכירות בקרוב";
     public static string Logout          => Language == AppLanguage.English ? "Logout"            : "התנתק";
     public static string ClientsBtn      => Language == AppLanguage.English ? "＋ Clients"        : "＋ לקוחות";
+    public static string CalendarBtn     => Language == AppLanguage.English ? " Calendar"         : " לוח שנה";
     public static string ToggleLang      => Language == AppLanguage.English ? " עברית"          : " English";
 
     // ── ClientsPage ───────────────────────────────────────────────────────
@@ -35,6 +36,7 @@ public static class AppStrings
     public static string PhonePlaceholder   => Language == AppLanguage.English ? "Phone number"   : "מספר טלפון";
     public static string ClientNumPlaceholder => Language == AppLanguage.English ? "Client number" : "מספר לקוח";
     public static string NotesPlaceholder   => Language == AppLanguage.English ? "Notes"          : "הערות";
+    public static string ScheduledDate      => Language == AppLanguage.English ? "Scheduled Date" : "תאריך מתוכנן";
     public static string AddClientTitle     => Language == AppLanguage.English ? "Add Client"     : "הוסף לקוח";
     public static string EditClientTitle    => Language == AppLanguage.English ? "Edit Client"    : "ערוך לקוח";
     public static string Save               => Language == AppLanguage.English ? "Save"           : "שמור";
