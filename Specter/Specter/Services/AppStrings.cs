@@ -59,9 +59,13 @@ public static class AppStrings
         ? "Re-enter the phone number to verify:" : "הזן שוב את מספר הטלפון לאימות:";
     public static string PhoneMismatchMsg   => Language == AppLanguage.English
         ? "Phone numbers do not match. Please try again." : "מספרי הטלפון אינם תואמים. נסה שוב.";
+    public static string PhoneLengthError   => Language == AppLanguage.English
+        ? "Phone number must be exactly 10 digits." : "מספר הטלפון חייב להיות בדיוק 10 ספרות.";
     public static string ConfirmClientNum   => Language == AppLanguage.English ? "Confirm Client Number" : "אמת מספר לקוח";
     public static string ConfirmClientNumMsg => Language == AppLanguage.English
         ? "Re-enter the client number to verify:" : "הזן שוב את מספר הלקוח לאימות:";
     public static string ClientNumMismatchMsg => Language == AppLanguage.English
         ? "Client numbers do not match. Please try again." : "מספרי הלקוח אינם תואמים. נסה שוב.";
+    public static string ClientNumLengthError => Language == AppLanguage.English
+        ? "Client number must be exactly 10 digits." : "מספר הלקוח חייב להיות בדיוק 10 ספרות.";
 }

@@ -260,8 +260,8 @@ public class ClientsPage : ContentPage
             Children =
             {
                 nameEntry,
-                phoneEntry,
                 clientNumEntry,
+                phoneEntry,
                 notesEditor,
                 saveBtn
             }
@@ -362,6 +362,17 @@ public class ClientsPage : ContentPage
 
             bool hasPhone = !string.IsNullOrWhiteSpace(client.PhoneNumber);
             bool hasClientNum = !string.IsNullOrWhiteSpace(client.ClientNumber);
+
+            if (hasPhone && client.PhoneNumber.Length != 10)
+            {
+                await DisplayAlert(AppStrings.Error, AppStrings.PhoneLengthError, AppStrings.Ok);
+                return;
+            }
+            if (hasClientNum && client.ClientNumber.Length != 10)
+            {
+                await DisplayAlert(AppStrings.Error, AppStrings.ClientNumLengthError, AppStrings.Ok);
+                return;
+            }
 
             // Only verify if exactly one is filled
             if (hasPhone && !hasClientNum)
