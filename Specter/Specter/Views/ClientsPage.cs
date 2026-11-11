@@ -40,7 +40,8 @@ public class ClientsPage : ContentPage
             Text = AppStrings.AddBtn,
             BackgroundColor = Color.FromArgb("#1565C0"),
             TextColor = Colors.White,
-            WidthRequest = 80
+            WidthRequest = 80,
+            HeightRequest = 48
         };
         addButton.Clicked += async (_, _) => await OnAddClientAsync();
 
@@ -365,13 +366,16 @@ public class ClientsPage : ContentPage
                 return;
             }
 
-            // Confirm Phone Number if provided
-            if (!string.IsNullOrWhiteSpace(client.PhoneNumber))
+            bool hasPhone = !string.IsNullOrWhiteSpace(client.PhoneNumber);
+            bool hasClientNum = !string.IsNullOrWhiteSpace(client.ClientNumber);
+
+            // Only verify if exactly one is filled
+            if (hasPhone && !hasClientNum)
             {
                 string confirm = await DisplayPromptAsync(AppStrings.ConfirmPhone,
                     AppStrings.ConfirmPhoneMsg, AppStrings.Ok, AppStrings.Cancel,
                     keyboard: Keyboard.Telephone);
-                if (confirm == null) return; // user cancelled
+                if (confirm == null) return;
                 if ((confirm?.Trim() ?? "") != client.PhoneNumber)
                 {
                     await DisplayAlert(AppStrings.Mismatch, AppStrings.PhoneMismatchMsg, AppStrings.Ok);
@@ -379,13 +383,12 @@ public class ClientsPage : ContentPage
                 }
             }
 
-            // Confirm Client Number if provided
-            if (!string.IsNullOrWhiteSpace(client.ClientNumber))
+            if (hasClientNum && !hasPhone)
             {
                 string confirmNum = await DisplayPromptAsync(AppStrings.ConfirmClientNum,
                     AppStrings.ConfirmClientNumMsg, AppStrings.Ok, AppStrings.Cancel,
                     keyboard: Keyboard.Numeric);
-                if (confirmNum == null) return; // user cancelled
+                if (confirmNum == null) return;
                 if ((confirmNum?.Trim() ?? "") != client.ClientNumber)
                 {
                     await DisplayAlert(AppStrings.Mismatch, AppStrings.ClientNumMismatchMsg, AppStrings.Ok);
