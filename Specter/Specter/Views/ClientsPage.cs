@@ -368,12 +368,6 @@ public class ClientsPage : ContentPage
                 await DisplayAlert(AppStrings.Error, AppStrings.PhoneLengthError, AppStrings.Ok);
                 return;
             }
-            if (hasClientNum && client.ClientNumber.Length != 10)
-            {
-                await DisplayAlert(AppStrings.Error, AppStrings.ClientNumLengthError, AppStrings.Ok);
-                return;
-            }
-
             // Only verify if exactly one is filled
             if (hasPhone && !hasClientNum)
             {
