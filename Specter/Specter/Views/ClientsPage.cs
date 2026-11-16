@@ -57,10 +57,14 @@ public class ClientsPage : ContentPage
 
         _listLayout = new VerticalStackLayout { Spacing = 8 };
 
-        Content = new VerticalStackLayout
+        Content = new Grid
         {
             Padding = new Thickness(16),
-            Spacing = 12,
+            RowDefinitions =
+            {
+                new RowDefinition { Height = GridLength.Auto },
+                new RowDefinition { Height = GridLength.Star }
+            },
             Children =
             {
                 topRow,
@@ -71,6 +75,10 @@ public class ClientsPage : ContentPage
                 }
             }
         };
+
+        var grid = (Grid)Content;
+        Grid.SetRow(topRow, 0);
+        Grid.SetRow((ScrollView)grid.Children[1], 1);
     }
 
     protected override async void OnAppearing()
