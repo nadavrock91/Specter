@@ -255,21 +255,19 @@ public class ClientsPage : ContentPage
 
         var closingLabel = new Label
         {
-            Text = AppStrings.ClosingChance(50),
+            Text = AppStrings.ClosingChanceLabel,
             TextColor = Color.FromArgb("#AAAAAA"),
             FontSize = 13
         };
-        var closingSlider = new Slider
+        var closingEntry = new Entry
         {
-            Minimum = 0,
-            Maximum = 100,
-            Value = client.ClosingChance,
-            MinimumTrackColor = Color.FromArgb("#1565C0"),
-            MaximumTrackColor = Color.FromArgb("#555"),
-            ThumbColor = Colors.White
+            Text = client.ClosingChance.ToString(),
+            Placeholder = "0-100",
+            Keyboard = Keyboard.Numeric,
+            BackgroundColor = Color.FromArgb("#2A2A3E"),
+            TextColor = Colors.White,
+            PlaceholderColor = Color.FromArgb("#888")
         };
-        closingSlider.ValueChanged += (_, e) =>
-            closingLabel.Text = AppStrings.ClosingChance((int)e.NewValue);
 
         var scheduledDateLabel = new Label
         {
@@ -309,7 +307,7 @@ public class ClientsPage : ContentPage
                 phoneEntry,
                 notesEditor,
                 closingLabel,
-                closingSlider,
+                closingEntry,
                 scheduledDateLabel,
                 scheduledDatePicker,
                 saveBtn
@@ -448,7 +446,13 @@ public class ClientsPage : ContentPage
             }
 
             client.ScheduledDate = scheduledDatePicker.Date;
-            client.ClosingChance = (int)closingSlider.Value;
+            if (int.TryParse(closingEntry.Text?.Trim(), out int chance) && chance >= 0 && chance <= 100)
+                client.ClosingChance = chance;
+            else if (!string.IsNullOrWhiteSpace(closingEntry.Text))
+            {
+                await DisplayAlert(AppStrings.Error, AppStrings.ClosingChanceError, AppStrings.Ok);
+                return;
+            }
             await _clientDb.SaveClientAsync(client);
             await Navigation.PopAsync();
             await LoadClientsAsync();

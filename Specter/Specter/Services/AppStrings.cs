@@ -37,7 +37,8 @@ public static class AppStrings
     public static string ClientNumPlaceholder => Language == AppLanguage.English ? "Client number" : "מספר לקוח";
     public static string NotesPlaceholder   => Language == AppLanguage.English ? "Notes"          : "הערות";
     public static string ScheduledDate      => Language == AppLanguage.English ? "Scheduled Date" : "תאריך מתוכנן";
-    public static string ClosingChance(int pct) => Language == AppLanguage.English ? $"Closing chance: {pct}%" : $"סיכוי סגירה: {pct}%";
+    public static string ClosingChanceLabel => Language == AppLanguage.English ? "Closing chance (0-100%)" : "סיכוי סגירה (0-100%)";
+    public static string ClosingChanceError => Language == AppLanguage.English ? "Closing chance must be a number between 0 and 100." : "סיכוי הסגירה חייב להיות מספר בין 0 ל-100.";
     public static string AddClientTitle     => Language == AppLanguage.English ? "Add Client"     : "הוסף לקוח";
     public static string EditClientTitle    => Language == AppLanguage.English ? "Edit Client"    : "ערוך לקוח";
     public static string Save               => Language == AppLanguage.English ? "Save"           : "שמור";
