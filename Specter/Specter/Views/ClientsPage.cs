@@ -253,6 +253,24 @@ public class ClientsPage : ContentPage
             AutoSize = EditorAutoSizeOption.Disabled
         };
 
+        var closingLabel = new Label
+        {
+            Text = AppStrings.ClosingChance(50),
+            TextColor = Color.FromArgb("#AAAAAA"),
+            FontSize = 13
+        };
+        var closingSlider = new Slider
+        {
+            Minimum = 0,
+            Maximum = 100,
+            Value = client.ClosingChance,
+            MinimumTrackColor = Color.FromArgb("#1565C0"),
+            MaximumTrackColor = Color.FromArgb("#555"),
+            ThumbColor = Colors.White
+        };
+        closingSlider.ValueChanged += (_, e) =>
+            closingLabel.Text = AppStrings.ClosingChance((int)e.NewValue);
+
         var scheduledDateLabel = new Label
         {
             Text = AppStrings.ScheduledDate,
@@ -290,6 +308,8 @@ public class ClientsPage : ContentPage
                 clientNumEntry,
                 phoneEntry,
                 notesEditor,
+                closingLabel,
+                closingSlider,
                 scheduledDateLabel,
                 scheduledDatePicker,
                 saveBtn
@@ -428,6 +448,7 @@ public class ClientsPage : ContentPage
             }
 
             client.ScheduledDate = scheduledDatePicker.Date;
+            client.ClosingChance = (int)closingSlider.Value;
             await _clientDb.SaveClientAsync(client);
             await Navigation.PopAsync();
             await LoadClientsAsync();
