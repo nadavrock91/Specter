@@ -288,6 +288,34 @@ public class ClientsPage : ContentPage
         else
             scheduledDatePicker.Date = DateTime.Today;
 
+        var dateOffsetRow = new HorizontalStackLayout { Spacing = 8 };
+        var offsets = new[] { ("Today", 0), ("+1", 1), ("+2", 2), ("+3", 3), ("+7", 7), ("+14", 14), ("+30", 30) };
+        foreach (var (label, days) in offsets)
+        {
+            var btn = new Button
+            {
+                Text = label,
+                FontSize = 12,
+                HeightRequest = 32,
+                Padding = new Thickness(8, 0),
+                BackgroundColor = Color.FromArgb("#2A2A3E"),
+                TextColor = Colors.White,
+                CornerRadius = 6,
+                BorderColor = Color.FromArgb("#555"),
+                BorderWidth = 1
+            };
+            int d = days;
+            btn.Clicked += (_, _) => scheduledDatePicker.Date = DateTime.Today.AddDays(d);
+            dateOffsetRow.Children.Add(btn);
+        }
+
+        var dateOffsetScroll = new ScrollView
+        {
+            Orientation = ScrollOrientation.Horizontal,
+            Content = dateOffsetRow,
+            HorizontalScrollBarVisibility = ScrollBarVisibility.Never
+        };
+
         var saveBtn = new Button
         {
             Text = isNew ? AppStrings.AddClientTitle : AppStrings.Save,
@@ -309,6 +337,7 @@ public class ClientsPage : ContentPage
                 closingLabel,
                 closingEntry,
                 scheduledDateLabel,
+                dateOffsetScroll,
                 scheduledDatePicker,
                 saveBtn
             }
