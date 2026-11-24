@@ -15,6 +15,8 @@ public class Client
     public string Notes { get; set; } = "";
     public DateTime? ScheduledDate { get; set; } = null;
     public int ClosingChance { get; set; } = 50;
+    public bool IsArchived { get; set; } = false;
+    public DateTime? ArchivedAt { get; set; } = null;
     public int CallAttemptCount { get; set; } = 0;
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;

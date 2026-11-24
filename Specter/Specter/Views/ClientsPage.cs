@@ -189,6 +189,23 @@ public class ClientsPage : ContentPage
         var tapGesture = new TapGestureRecognizer();
         tapGesture.Tapped += async (_, _) => await OnEditClientAsync(client);
         frame.GestureRecognizers.Add(tapGesture);
+
+        var archiveBtn = new Button
+        {
+            Text = AppStrings.Archive,
+            FontSize = 11,
+            HeightRequest = 28,
+            BackgroundColor = Color.FromArgb("#424242"),
+            TextColor = Color.FromArgb("#AAAAAA"),
+            CornerRadius = 6,
+            HorizontalOptions = LayoutOptions.End
+        };
+        archiveBtn.Clicked += async (_, _) =>
+        {
+            await _clientDb.ArchiveClientAsync(client.Id, client.Username);
+            await LoadClientsAsync();
+        };
+        details.Children.Add(archiveBtn);
         return frame;
     }
 

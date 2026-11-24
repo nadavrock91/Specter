@@ -76,9 +76,30 @@ public class ClientDatabaseService
     {
         var conn = await GetConnectionAsync();
         return await conn.Table<Client>()
-            .Where(c => c.Username == username)
+            .Where(c => c.Username == username && !c.IsArchived)
             .OrderBy(c => c.Name)
             .ToListAsync();
+    }
+
+    public async Task<List<Client>> GetArchivedClientsAsync(string username)
+    {
+        var conn = await GetConnectionAsync();
+        return await conn.Table<Client>()
+            .Where(c => c.Username == username && c.IsArchived)
+            .OrderByDescending(c => c.ArchivedAt)
+            .ToListAsync();
+    }
+
+    public async Task ArchiveClientAsync(int id, string username)
+    {
+        var conn = await GetConnectionAsync();
+        var client = await conn.Table<Client>()
+            .Where(c => c.Id == id && c.Username == username)
+            .FirstOrDefaultAsync();
+        if (client == null) return;
+        client.IsArchived = true;
+        client.ArchivedAt = DateTime.UtcNow;
+        await conn.UpdateAsync(client);
     }
 
     public async Task<Client?> GetClientAsync(int id)
@@ -134,7 +155,7 @@ public class ClientDatabaseService
         var conn = await GetConnectionAsync();
         query = query.ToLowerInvariant();
         var all = await conn.Table<Client>()
-            .Where(c => c.Username == username)
+            .Where(c => c.Username == username && !c.IsArchived)
             .ToListAsync();
         return all.Where(c =>
             c.Name.ToLowerInvariant().Contains(query) ||

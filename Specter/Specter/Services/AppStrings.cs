@@ -23,6 +23,7 @@ public static class AppStrings
     public static string Logout          => Language == AppLanguage.English ? "Logout"            : "התנתק";
     public static string ClientsBtn      => Language == AppLanguage.English ? "＋ Clients"        : "＋ לקוחות";
     public static string CalendarBtn     => Language == AppLanguage.English ? " Calendar"         : " לוח שנה";
+    public static string ArchivedBtn     => Language == AppLanguage.English ? " Archived"         : " ארכיון";
     public static string ToggleLang      => Language == AppLanguage.English ? " עברית"          : " English";
 
     // ── ClientsPage ───────────────────────────────────────────────────────
@@ -30,6 +31,9 @@ public static class AppStrings
     public static string SearchPlaceholder => Language == AppLanguage.English ? "Search..."       : "חפש...";
     public static string AddBtn          => Language == AppLanguage.English ? "＋ Add"            : "＋ הוסף";
     public static string NoClients       => Language == AppLanguage.English ? "No clients yet."   : "אין לקוחות עדיין.";
+    public static string Archive         => Language == AppLanguage.English ? "Archive"           : "ארכיון";
+    public static string ArchivedClients => Language == AppLanguage.English ? "Archived Clients"  : "לקוחות בארכיון";
+    public static string ArchivedOn      => Language == AppLanguage.English ? "Archived:"         : "בוארכב:";
     public static string CallAttempts(int n) => Language == AppLanguage.English
         ? $"Call attempts: {n}" : $"ניסיונות שיחה: {n}";
     public static string TitlePlaceholder   => Language == AppLanguage.English ? "Title"          : "כותרת";

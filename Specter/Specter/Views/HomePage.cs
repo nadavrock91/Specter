@@ -13,6 +13,7 @@ public class HomePage : ContentPage
     private readonly Button _clientsBtn;
     private readonly Button _langToggleBtn;
     private Button _calendarBtn = null!;
+    private Button _archivedBtn = null!;
 
     public HomePage(
         AuthService authService,
@@ -62,6 +63,18 @@ public class HomePage : ContentPage
             await Navigation.PushAsync(
                 new CalendarPage(_clientDb, _authService.CurrentUsername));
 
+        _archivedBtn = new Button
+        {
+            BackgroundColor = Color.FromArgb("#424242"),
+            TextColor = Colors.White,
+            CornerRadius = 8,
+            HeightRequest = 48,
+            Margin = new Thickness(0, 0, 0, 8)
+        };
+        _archivedBtn.Clicked += async (_, _) =>
+            await Navigation.PushAsync(
+                new ArchivedClientsPage(_clientDb, _authService.CurrentUsername));
+
         _langToggleBtn = new Button
         {
             BackgroundColor = Color.FromArgb("#424242"),
@@ -86,6 +99,7 @@ public class HomePage : ContentPage
                 _comingSoonLabel,
                 _clientsBtn,
                 _calendarBtn,
+                _archivedBtn,
                 _logoutButton,
                 _langToggleBtn
             }
@@ -103,6 +117,7 @@ public class HomePage : ContentPage
         _logoutButton.Text = AppStrings.Logout;
         _clientsBtn.Text = AppStrings.ClientsBtn;
         _calendarBtn.Text = AppStrings.CalendarBtn;
+        _archivedBtn.Text = AppStrings.ArchivedBtn;
         _langToggleBtn.Text = AppStrings.ToggleLang;
     }
 
