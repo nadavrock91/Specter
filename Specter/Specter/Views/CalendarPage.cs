@@ -232,7 +232,7 @@ public class CalendarPage : ContentPage
                     {
                         new Label
                         {
-                            Text = client.Name,
+                            Text = $"{client.ClosingChance}% - {client.Title}",
                             TextColor = Colors.White,
                             FontSize = 16,
                             FontAttributes = FontAttributes.Bold

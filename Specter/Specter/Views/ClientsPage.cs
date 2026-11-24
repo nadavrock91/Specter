@@ -214,6 +214,15 @@ public class ClientsPage : ContentPage
             Username = _auth.CurrentUsername
         };
 
+        var titleEntry = new Entry
+        {
+            Text = client.Title ?? "",
+            Placeholder = AppStrings.TitlePlaceholder,
+            BackgroundColor = Color.FromArgb("#2A2A3E"),
+            TextColor = Colors.White,
+            PlaceholderColor = Color.FromArgb("#888")
+        };
+
         var nameEntry = new Entry
         {
             Text = client.Name,
@@ -330,6 +339,7 @@ public class ClientsPage : ContentPage
             Padding = new Thickness(0),
             Children =
             {
+                titleEntry,
                 nameEntry,
                 clientNumEntry,
                 phoneEntry,
@@ -475,6 +485,7 @@ public class ClientsPage : ContentPage
             }
 
             client.ScheduledDate = scheduledDatePicker.Date;
+            client.Title = titleEntry.Text?.Trim() ?? "";
             if (int.TryParse(closingEntry.Text?.Trim(), out int chance) && chance >= 0 && chance <= 100)
                 client.ClosingChance = chance;
             else if (!string.IsNullOrWhiteSpace(closingEntry.Text))

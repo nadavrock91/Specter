@@ -32,6 +32,7 @@ public static class AppStrings
     public static string NoClients       => Language == AppLanguage.English ? "No clients yet."   : "אין לקוחות עדיין.";
     public static string CallAttempts(int n) => Language == AppLanguage.English
         ? $"Call attempts: {n}" : $"ניסיונות שיחה: {n}";
+    public static string TitlePlaceholder   => Language == AppLanguage.English ? "Title"          : "כותרת";
     public static string NamePlaceholder    => Language == AppLanguage.English ? "Name"           : "שם";
     public static string PhonePlaceholder   => Language == AppLanguage.English ? "Phone number"   : "מספר טלפון";
     public static string ClientNumPlaceholder => Language == AppLanguage.English ? "Client number" : "מספר לקוח";
