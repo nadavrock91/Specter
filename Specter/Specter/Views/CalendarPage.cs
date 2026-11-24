@@ -174,7 +174,7 @@ public class CalendarPage : ContentPage
                     HasShadow = false,
                     Content = new Label
                     {
-                        Text = client.Name,
+                        Text = $"{client.ClosingChance}% - {client.Title}",
                         TextColor = Colors.White,
                         FontSize = 11,
                         LineBreakMode = LineBreakMode.TailTruncation
