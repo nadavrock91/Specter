@@ -62,6 +62,7 @@ public static class AppStrings
     public static string DeleteMsg(string name) => Language == AppLanguage.English
         ? $"Delete {name}?" : $"למחוק את {name}?";
     public static string NameRequired       => Language == AppLanguage.English ? "Name is required." : "שם הוא שדה חובה.";
+    public static string NotesRequired      => Language == AppLanguage.English ? "Notes are required." : "הערות הן שדה חובה.";
     public static string Mismatch           => Language == AppLanguage.English ? "Mismatch"       : "אי התאמה";
     public static string ConfirmPhone       => Language == AppLanguage.English ? "Confirm Phone Number" : "אמת מספר טלפון";
     public static string ConfirmPhoneMsg    => Language == AppLanguage.English

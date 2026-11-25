@@ -463,6 +463,12 @@ public class ClientsPage : ContentPage
                 return;
             }
 
+            if (string.IsNullOrWhiteSpace(notesEditor.Text))
+            {
+                await DisplayAlert(AppStrings.Error, AppStrings.NotesRequired, AppStrings.Ok);
+                return;
+            }
+
             bool hasPhone = !string.IsNullOrWhiteSpace(client.PhoneNumber);
             bool hasClientNum = !string.IsNullOrWhiteSpace(client.ClientNumber);
 
