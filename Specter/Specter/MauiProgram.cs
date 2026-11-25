@@ -36,6 +36,17 @@ namespace Specter
                 }
             });
 
+#if WINDOWS
+            Microsoft.Maui.Handlers.EditorHandler.Mapper.AppendToMapping("FixClipboard", (handler, view) =>
+            {
+                if (handler.PlatformView is Microsoft.UI.Xaml.Controls.TextBox tb)
+                {
+                    tb.IsReadOnly = false;
+                    tb.AcceptsReturn = true;
+                }
+            });
+#endif
+
             builder.Services.AddSingleton<DatabaseService>();
             builder.Services.AddSingleton<ClientDatabaseService>();
             builder.Services.AddSingleton<AuthService>();
