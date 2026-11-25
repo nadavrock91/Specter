@@ -109,6 +109,7 @@ public class ClientDatabaseService
         if (client == null) return;
         client.IsArchived = true;
         client.ArchivedAt = DateTime.UtcNow;
+        client.ScheduledDate = null;
         await conn.UpdateAsync(client);
     }
 
