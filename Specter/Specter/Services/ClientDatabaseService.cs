@@ -62,6 +62,16 @@ public class ClientDatabaseService
                 var columns = conn.GetTableInfo("clients");
                 if (columns.Count > 0 && !columns.Any(c => c.Name == nameof(Client.CallAttemptCount)))
                     conn.Execute("ALTER TABLE clients ADD COLUMN CallAttemptCount INTEGER NOT NULL DEFAULT 0");
+                if (columns.Count > 0 && !columns.Any(c => c.Name == "Title"))
+                    conn.Execute("ALTER TABLE clients ADD COLUMN Title TEXT NOT NULL DEFAULT ''");
+                if (columns.Count > 0 && !columns.Any(c => c.Name == "ScheduledDate"))
+                    conn.Execute("ALTER TABLE clients ADD COLUMN ScheduledDate TEXT");
+                if (columns.Count > 0 && !columns.Any(c => c.Name == "ClosingChance"))
+                    conn.Execute("ALTER TABLE clients ADD COLUMN ClosingChance INTEGER NOT NULL DEFAULT 50");
+                if (columns.Count > 0 && !columns.Any(c => c.Name == "IsArchived"))
+                    conn.Execute("ALTER TABLE clients ADD COLUMN IsArchived INTEGER NOT NULL DEFAULT 0");
+                if (columns.Count > 0 && !columns.Any(c => c.Name == "ArchivedAt"))
+                    conn.Execute("ALTER TABLE clients ADD COLUMN ArchivedAt TEXT");
                 conn.CreateTable<Client>();
             });
             _isInitialized = true;

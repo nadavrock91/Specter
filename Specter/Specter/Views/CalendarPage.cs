@@ -199,7 +199,7 @@ public class CalendarPage : ContentPage
             {
                 var tapGesture = new TapGestureRecognizer();
                 tapGesture.Tapped += async (_, _) =>
-                    await Navigation.PushAsync(BuildClientsForDatePage(date, clientsForDate));
+                    await Navigation.PushAsync(BuildClientsForDatePage(date, clientsForDate, _clientDb));
                 dayCell.GestureRecognizers.Add(tapGesture);
             }
 
@@ -209,7 +209,7 @@ public class CalendarPage : ContentPage
         }
     }
 
-    private static ContentPage BuildClientsForDatePage(DateTime date, List<Client> clients)
+    private ContentPage BuildClientsForDatePage(DateTime date, List<Client> clients, ClientDatabaseService clientDb)
     {
         var list = new VerticalStackLayout
         {
@@ -219,6 +219,22 @@ public class CalendarPage : ContentPage
 
         foreach (var client in clients)
         {
+            var archiveBtn = new Button
+            {
+                Text = AppStrings.Archive,
+                FontSize = 11,
+                HeightRequest = 28,
+                BackgroundColor = Color.FromArgb("#424242"),
+                TextColor = Color.FromArgb("#AAAAAA"),
+                CornerRadius = 6,
+                HorizontalOptions = LayoutOptions.End
+            };
+            archiveBtn.Clicked += async (_, _) =>
+            {
+                await clientDb.ArchiveClientAsync(client.Id, client.Username);
+                await Navigation.PopAsync();
+            };
+
             list.Children.Add(new Frame
             {
                 BackgroundColor = Color.FromArgb("#2A2A3E"),
@@ -239,7 +255,8 @@ public class CalendarPage : ContentPage
                         },
                         new Label { Text = client.PhoneNumber, TextColor = Color.FromArgb("#90CAF9") },
                         new Label { Text = client.ClientNumber, TextColor = Color.FromArgb("#CCCCCC") },
-                        new Label { Text = client.Notes, TextColor = Color.FromArgb("#CCCCCC") }
+                        new Label { Text = client.Notes, TextColor = Color.FromArgb("#CCCCCC") },
+                        archiveBtn
                     }
                 }
             });
