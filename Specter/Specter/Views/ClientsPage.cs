@@ -279,6 +279,21 @@ public class ClientsPage : ContentPage
             AutoSize = EditorAutoSizeOption.Disabled
         };
 
+        var copyTitleToNotesBtn = new Button
+        {
+            Text = AppStrings.CopyTitleToNotes,
+            FontSize = 12,
+            HeightRequest = 30,
+            BackgroundColor = Color.FromArgb("#2A2A3E"),
+            TextColor = Color.FromArgb("#90CAF9"),
+            HorizontalOptions = LayoutOptions.Fill
+        };
+        copyTitleToNotesBtn.Clicked += (_, _) =>
+        {
+            if (!string.IsNullOrWhiteSpace(titleEntry.Text))
+                notesEditor.Text = titleEntry.Text;
+        };
+
         var closingLabel = new Label
         {
             Text = AppStrings.ClosingChanceLabel,
@@ -360,6 +375,7 @@ public class ClientsPage : ContentPage
                 nameEntry,
                 clientNumEntry,
                 phoneEntry,
+                copyTitleToNotesBtn,
                 notesEditor,
                 closingLabel,
                 closingEntry,
