@@ -217,56 +217,74 @@ public class CalendarPage : ContentPage
             Spacing = 10
         };
 
-        foreach (var client in clients)
+        void AddClientCards(List<Client> clientsToRender)
         {
-            var archiveBtn = new Button
+            foreach (var client in clientsToRender)
             {
-                Text = AppStrings.Archive,
-                FontSize = 11,
-                HeightRequest = 28,
-                BackgroundColor = Color.FromArgb("#424242"),
-                TextColor = Color.FromArgb("#AAAAAA"),
-                CornerRadius = 6,
-                HorizontalOptions = LayoutOptions.End
-            };
-            archiveBtn.Clicked += async (_, _) =>
-            {
-                await clientDb.ArchiveClientAsync(client.Id, client.Username);
-                await Navigation.PopAsync();
-            };
-
-            list.Children.Add(new Frame
-            {
-                BackgroundColor = Color.FromArgb("#2A2A3E"),
-                CornerRadius = 8,
-                Padding = new Thickness(12),
-                HasShadow = false,
-                Content = new VerticalStackLayout
+                var archiveBtn = new Button
                 {
-                    Spacing = 5,
-                    Children =
+                    Text = AppStrings.Archive,
+                    FontSize = 11,
+                    HeightRequest = 28,
+                    BackgroundColor = Color.FromArgb("#424242"),
+                    TextColor = Color.FromArgb("#AAAAAA"),
+                    CornerRadius = 6,
+                    HorizontalOptions = LayoutOptions.End
+                };
+                archiveBtn.Clicked += async (_, _) =>
+                {
+                    await clientDb.ArchiveClientAsync(client.Id, client.Username);
+                    var allClients = await clientDb.GetClientsAsync(client.Username);
+                    var updatedClients = allClients.Where(c =>
+                        c.ScheduledDate.HasValue &&
+                        c.ScheduledDate.Value.Date == date.Date).ToList();
+
+                    list.Children.Clear();
+                    if (updatedClients.Count == 0)
                     {
-                        new Label
-                        {
-                            Text = $"{client.ClosingChance}% - {client.Title}",
-                            TextColor = Colors.White,
-                            FontSize = 16,
-                            FontAttributes = FontAttributes.Bold
-                        },
-                        new Label { Text = client.PhoneNumber, TextColor = Color.FromArgb("#90CAF9") },
-                        new Label { Text = client.ClientNumber, TextColor = Color.FromArgb("#CCCCCC") },
-                        new Label { Text = client.Notes, TextColor = Color.FromArgb("#CCCCCC") },
-                        archiveBtn
+                        await Navigation.PopAsync();
+                        return;
                     }
-                }
-            });
+
+                    AddClientCards(updatedClients);
+                };
+
+                list.Children.Add(new Frame
+                {
+                    BackgroundColor = Color.FromArgb("#2A2A3E"),
+                    CornerRadius = 8,
+                    Padding = new Thickness(12),
+                    HasShadow = false,
+                    Content = new VerticalStackLayout
+                    {
+                        Spacing = 5,
+                        Children =
+                        {
+                            new Label
+                            {
+                                Text = $"{client.ClosingChance}% - {client.Title}",
+                                TextColor = Colors.White,
+                                FontSize = 16,
+                                FontAttributes = FontAttributes.Bold
+                            },
+                            new Label { Text = client.PhoneNumber, TextColor = Color.FromArgb("#90CAF9") },
+                            new Label { Text = client.ClientNumber, TextColor = Color.FromArgb("#CCCCCC") },
+                            new Label { Text = client.Notes, TextColor = Color.FromArgb("#CCCCCC") },
+                            archiveBtn
+                        }
+                    }
+                });
+            }
         }
 
-        return new ContentPage
+        AddClientCards(clients);
+
+        var page = new ContentPage
         {
             Title = date.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture),
             BackgroundColor = Color.FromArgb("#1A1A2E"),
             Content = new ScrollView { Content = list }
         };
+        return page;
     }
 }
