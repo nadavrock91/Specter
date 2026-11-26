@@ -14,6 +14,7 @@ public class HomePage : ContentPage
     private readonly Button _langToggleBtn;
     private Button _calendarBtn = null!;
     private Button _archivedBtn = null!;
+    private Button _privacyBtn = null!;
 
     public HomePage(
         AuthService authService,
@@ -88,6 +89,16 @@ public class HomePage : ContentPage
             AppStrings.Toggle();
         };
 
+        _privacyBtn = new Button
+        {
+            BackgroundColor = Color.FromArgb("#424242"),
+            TextColor = Colors.White,
+            CornerRadius = 8,
+            HeightRequest = 40,
+            Margin = new Thickness(0, 4, 0, 0)
+        };
+        _privacyBtn.Clicked += (_, _) => AppStrings.TogglePrivacy();
+
         Content = new VerticalStackLayout
         {
             Padding = new Thickness(30),
@@ -101,7 +112,8 @@ public class HomePage : ContentPage
                 _calendarBtn,
                 _archivedBtn,
                 _logoutButton,
-                _langToggleBtn
+                _langToggleBtn,
+                _privacyBtn
             }
         };
 
@@ -119,6 +131,7 @@ public class HomePage : ContentPage
         _calendarBtn.Text = AppStrings.CalendarBtn;
         _archivedBtn.Text = AppStrings.ArchivedBtn;
         _langToggleBtn.Text = AppStrings.ToggleLang;
+        _privacyBtn.Text = AppStrings.PrivacyMode ? AppStrings.PrivacyOn : AppStrings.PrivacyOff;
     }
 
     protected override async void OnAppearing()

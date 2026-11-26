@@ -248,7 +248,7 @@ public class CalendarPage : ContentPage
                             FontSize = 16,
                             FontAttributes = FontAttributes.Bold
                         },
-                        new Label { Text = client.PhoneNumber, TextColor = Color.FromArgb("#90CAF9") },
+                        new Label { Text = AppStrings.PrivacyMode ? AppStrings.Mask(client.PhoneNumber) : client.PhoneNumber, TextColor = Color.FromArgb("#90CAF9") },
                         new Label { Text = client.ClientNumber, TextColor = Color.FromArgb("#CCCCCC") },
                         new Label { Text = client.Notes, TextColor = Color.FromArgb("#CCCCCC") },
                         archiveBtn

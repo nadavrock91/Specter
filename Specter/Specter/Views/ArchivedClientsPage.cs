@@ -43,6 +43,9 @@ public class ArchivedClientsPage : ContentPage
         contentGrid.Add(_searchEntry, 0, 0);
         contentGrid.Add(new ScrollView { Content = _listLayout }, 0, 1);
         Content = contentGrid;
+
+        AppStrings.LanguageChanged += () =>
+            MainThread.BeginInvokeOnMainThread(() => RenderList(_clients));
     }
 
     protected override async void OnAppearing()
@@ -97,8 +100,8 @@ public class ArchivedClientsPage : ContentPage
                             FontSize = 16,
                             FontAttributes = FontAttributes.Bold
                         },
-                        new Label { Text = client.Name, TextColor = Colors.White },
-                        new Label { Text = client.PhoneNumber, TextColor = Color.FromArgb("#90CAF9") },
+                        new Label { Text = AppStrings.PrivacyMode ? AppStrings.Mask(client.Name) : client.Name, TextColor = Colors.White },
+                        new Label { Text = AppStrings.PrivacyMode ? AppStrings.Mask(client.PhoneNumber) : client.PhoneNumber, TextColor = Color.FromArgb("#90CAF9") },
                         new Label { Text = client.Notes, TextColor = Color.FromArgb("#CCCCCC") }
                     }
                 }

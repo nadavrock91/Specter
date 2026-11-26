@@ -7,6 +7,7 @@ public enum AppLanguage { English, Hebrew }
 public static class AppStrings
 {
     public static AppLanguage Language { get; private set; } = AppLanguage.English;
+    public static bool PrivacyMode { get; private set; } = false;
     public static event Action? LanguageChanged;
 
     public static void Toggle()
@@ -14,6 +15,15 @@ public static class AppStrings
         Language = Language == AppLanguage.English ? AppLanguage.Hebrew : AppLanguage.English;
         LanguageChanged?.Invoke();
     }
+
+    public static void TogglePrivacy()
+    {
+        PrivacyMode = !PrivacyMode;
+        LanguageChanged?.Invoke();
+    }
+
+    public static string Mask(string? value) =>
+        string.IsNullOrEmpty(value) ? "" : new string('*', Math.Min(value.Length, 8));
 
     // ── HomePage ──────────────────────────────────────────────────────────
     public static string HomeTitle       => Language == AppLanguage.English ? "Home"              : "בית";
@@ -25,6 +35,8 @@ public static class AppStrings
     public static string CalendarBtn     => Language == AppLanguage.English ? " Calendar"         : " לוח שנה";
     public static string ArchivedBtn     => Language == AppLanguage.English ? " Archived"         : " ארכיון";
     public static string ToggleLang      => Language == AppLanguage.English ? " עברית"          : " English";
+    public static string PrivacyOn       => Language == AppLanguage.English ? " Privacy ON"       : " פרטיות פועל";
+    public static string PrivacyOff      => Language == AppLanguage.English ? " Privacy OFF"      : " פרטיות כבוי";
 
     // ── ClientsPage ───────────────────────────────────────────────────────
     public static string ClientsTitle    => Language == AppLanguage.English ? "Clients"           : "לקוחות";

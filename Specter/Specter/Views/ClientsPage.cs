@@ -141,7 +141,7 @@ public class ClientsPage : ContentPage
             {
                 new Label
                 {
-                    Text = client.Name,
+                    Text = AppStrings.PrivacyMode ? AppStrings.Mask(client.Name) : client.Name,
                     TextColor = Colors.White,
                     FontSize = 15,
                     FontAttributes = FontAttributes.Bold,
@@ -160,7 +160,7 @@ public class ClientsPage : ContentPage
         {
             details.Children.Add(new Label
             {
-                Text = client.PhoneNumber,
+                Text = AppStrings.PrivacyMode ? AppStrings.Mask(client.PhoneNumber) : client.PhoneNumber,
                 TextColor = Color.FromArgb("#90CAF9"),
                 FontSize = 13
             });
@@ -547,5 +547,6 @@ public class ClientsPage : ContentPage
     private void ApplyStrings()
     {
         Title = AppStrings.ClientsTitle;
+        MainThread.BeginInvokeOnMainThread(async () => await LoadClientsAsync());
     }
 }
