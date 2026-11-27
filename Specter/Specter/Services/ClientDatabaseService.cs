@@ -77,6 +77,8 @@ public class ClientDatabaseService
                 // Category FK migration on clients
                 if (columns.Count > 0 && !columns.Any(c => c.Name == "CategoryId"))
                     conn.Execute("ALTER TABLE clients ADD COLUMN CategoryId INTEGER");
+                if (columns.Count > 0 && !columns.Any(c => c.Name == "CreatedAt"))
+                    conn.Execute("ALTER TABLE clients ADD COLUMN CreatedAt TEXT NOT NULL DEFAULT '2000-01-01 00:00:00'");
                 conn.CreateTable<Client>();
             });
             _isInitialized = true;
@@ -121,7 +123,7 @@ public class ClientDatabaseService
         var conn = await GetConnectionAsync();
         return await conn.Table<Client>()
             .Where(c => c.Username == username && !c.IsArchived)
-            .OrderBy(c => c.Name)
+            .OrderByDescending(c => c.CreatedAt)
             .ToListAsync();
     }
 

@@ -185,8 +185,25 @@ public class ClientsPage : ContentPage
             return;
         }
 
+        string? lastDate = null;
         foreach (var client in clients)
+        {
+            string dateStr = client.CreatedAt.ToLocalTime().ToString("dd/MM/yyyy");
+            if (dateStr != lastDate)
+            {
+                lastDate = dateStr;
+                _listLayout.Children.Add(new Label
+                {
+                    Text = dateStr,
+                    TextColor = Color.FromArgb("#888"),
+                    FontSize = 12,
+                    FontAttributes = FontAttributes.Bold,
+                    Margin = new Thickness(0, 8, 0, 2),
+                    HorizontalOptions = LayoutOptions.Start
+                });
+            }
             _listLayout.Children.Add(BuildClientCard(client));
+        }
     }
 
     private View BuildClientCard(Client client)
