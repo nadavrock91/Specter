@@ -283,7 +283,61 @@ public class ClientsPage : ContentPage
             await _clientDb.ArchiveClientAsync(client.Id, client.Username);
             await LoadClientsAsync();
         };
-        details.Children.Add(archiveBtn);
+        // Category quick-assign button
+        var catLabel = client.CategoryId.HasValue
+            ? (_categories.FirstOrDefault(c => c.Id == client.CategoryId.Value)?.Name ?? AppStrings.CategoryLabel)
+            : AppStrings.CategoryLabel;
+
+        var categoryBtn = new Button
+        {
+            Text = $" {catLabel}",
+            FontSize = 11,
+            HeightRequest = 28,
+            BackgroundColor = Color.FromArgb("#2A2A3E"),
+            TextColor = Color.FromArgb("#FFD54F"),
+            CornerRadius = 6,
+            HorizontalOptions = LayoutOptions.Start,
+            BorderColor = Color.FromArgb("#FFD54F"),
+            BorderWidth = 1
+        };
+        categoryBtn.Clicked += async (_, _) =>
+        {
+            // Build action sheet options: existing categories + Add New + Remove Category
+            var catOptions = _categories.Select(c => c.Name).ToArray();
+            var extras = new[] { AppStrings.AddCategory, AppStrings.NoCategoryOption };
+            var all = catOptions.Concat(extras).ToArray();
+
+            string? chosen = await DisplayActionSheet(AppStrings.CategoryLabel, AppStrings.Cancel, null, all);
+            if (chosen == null || chosen == AppStrings.Cancel) return;
+
+            if (chosen == AppStrings.AddCategory)
+            {
+                string? newName = await DisplayPromptAsync(AppStrings.AddCategory, AppStrings.CategoryName);
+                if (string.IsNullOrWhiteSpace(newName)) return;
+                var created = await _clientDb.AddCategoryAsync(_auth.CurrentUsername, newName);
+                _categories.Add(created);
+                client.CategoryId = created.Id;
+            }
+            else if (chosen == AppStrings.NoCategoryOption)
+            {
+                client.CategoryId = null;
+            }
+            else
+            {
+                var selected = _categories.FirstOrDefault(c => c.Name == chosen);
+                if (selected != null) client.CategoryId = selected.Id;
+            }
+
+            await _clientDb.SaveClientAsync(client);
+            await LoadClientsAsync();
+        };
+
+        details.Children.Add(new HorizontalStackLayout
+        {
+            Spacing = 8,
+            HorizontalOptions = LayoutOptions.End,
+            Children = { categoryBtn, archiveBtn }
+        });
         return frame;
     }
 
