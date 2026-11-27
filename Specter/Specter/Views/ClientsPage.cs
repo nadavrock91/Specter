@@ -8,9 +8,11 @@ public class ClientsPage : ContentPage
     private readonly AuthService _auth;
     private readonly ClientDatabaseService _clientDb;
     private VerticalStackLayout _listLayout = null!;
+    private HorizontalStackLayout _filterRow = null!;
     private Entry _searchEntry = null!;
     private List<Client> _clients = new();
     private List<ClientCategory> _categories = new();
+    private int? _activeCategoryFilter = null; // null means "All"
     private bool _isOpeningForm;
     private bool _isLoggingAttempt;
 
@@ -58,28 +60,41 @@ public class ClientsPage : ContentPage
 
         _listLayout = new VerticalStackLayout { Spacing = 8 };
 
+        _filterRow = new HorizontalStackLayout { Spacing = 8 };
+
+        var filterScroll = new ScrollView
+        {
+            Orientation = ScrollOrientation.Horizontal,
+            Content = _filterRow,
+            HorizontalScrollBarVisibility = ScrollBarVisibility.Never
+        };
+
+        var listScroll = new ScrollView
+        {
+            Content = _listLayout,
+            VerticalOptions = LayoutOptions.Fill
+        };
+
         Content = new Grid
         {
             Padding = new Thickness(16),
             RowDefinitions =
             {
                 new RowDefinition { Height = GridLength.Auto },
+                new RowDefinition { Height = GridLength.Auto },
                 new RowDefinition { Height = GridLength.Star }
             },
             Children =
             {
                 topRow,
-                new ScrollView
-                {
-                    Content = _listLayout,
-                    VerticalOptions = LayoutOptions.Fill
-                }
+                filterScroll,
+                listScroll
             }
         };
 
-        var grid = (Grid)Content;
         Grid.SetRow(topRow, 0);
-        Grid.SetRow((ScrollView)grid.Children[1], 1);
+        Grid.SetRow(filterScroll, 1);
+        Grid.SetRow(listScroll, 2);
     }
 
     protected override async void OnAppearing()
@@ -92,20 +107,67 @@ public class ClientsPage : ContentPage
     {
         _clients = await _clientDb.GetClientsAsync(_auth.CurrentUsername);
         _categories = await _clientDb.GetCategoriesAsync(_auth.CurrentUsername);
-        RenderList(_clients);
+        RebuildFilterChips();
+        ApplyFilter();
     }
 
-    private async void OnSearchChanged(object? sender, TextChangedEventArgs e)
+    private void OnSearchChanged(object? sender, TextChangedEventArgs e)
     {
         string q = _searchEntry.Text?.Trim() ?? "";
-        if (q.Length == 0)
-        {
-            RenderList(_clients);
-            return;
-        }
+        var filtered = q.Length == 0
+            ? _clients
+            : _clients.Where(c =>
+                c.Name.Contains(q, StringComparison.OrdinalIgnoreCase) ||
+                c.PhoneNumber.Contains(q, StringComparison.OrdinalIgnoreCase) ||
+                c.ClientNumber.Contains(q, StringComparison.OrdinalIgnoreCase) ||
+                c.Notes.Contains(q, StringComparison.OrdinalIgnoreCase))
+                .ToList();
 
-        var filtered = await _clientDb.SearchClientsAsync(
-            _auth.CurrentUsername, q);
+        if (_activeCategoryFilter.HasValue)
+            filtered = filtered.Where(c => c.CategoryId == _activeCategoryFilter).ToList();
+
+        RenderList(filtered);
+    }
+
+    private void RebuildFilterChips()
+    {
+        _filterRow.Children.Clear();
+
+        // "All" chip
+        var allChip = MakeFilterChip(AppStrings.AllCategories, null);
+        _filterRow.Children.Add(allChip);
+
+        foreach (var cat in _categories)
+            _filterRow.Children.Add(MakeFilterChip(cat.Name, cat.Id));
+    }
+
+    private Button MakeFilterChip(string label, int? categoryId)
+    {
+        bool isActive = _activeCategoryFilter == categoryId;
+        var chip = new Button
+        {
+            Text = label,
+            FontSize = 12,
+            HeightRequest = 30,
+            Padding = new Thickness(10, 0),
+            CornerRadius = 15,
+            BackgroundColor = isActive ? Color.FromArgb("#1565C0") : Color.FromArgb("#2A2A3E"),
+            TextColor = Colors.White
+        };
+        chip.Clicked += (_, _) =>
+        {
+            _activeCategoryFilter = categoryId;
+            RebuildFilterChips();
+            ApplyFilter();
+        };
+        return chip;
+    }
+
+    private void ApplyFilter()
+    {
+        var filtered = _activeCategoryFilter == null
+            ? _clients
+            : _clients.Where(c => c.CategoryId == _activeCategoryFilter).ToList();
         RenderList(filtered);
     }
 

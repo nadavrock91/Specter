@@ -55,6 +55,7 @@ public static class AppStrings
     public static string NotesPlaceholder   => Language == AppLanguage.English ? "Notes"          : "הערות";
     public static string CopyTitleToNotes   => Language == AppLanguage.English ? "↓ Copy Title to Notes" : "↓ העתק כותרת להערות";
     public static string CategoryLabel      => Language == AppLanguage.English ? "Category"            : "קטגוריה";
+    public static string AllCategories      => Language == AppLanguage.English ? "All"                 : "הכל";
     public static string NoCategoryOption   => Language == AppLanguage.English ? "— No Category —"     : "— ללא קטגוריה —";
     public static string AddCategory        => Language == AppLanguage.English ? "+ Add Category"       : "+ הוסף קטגוריה";
     public static string CategoryName       => Language == AppLanguage.English ? "Category name"        : "שם קטגוריה";
