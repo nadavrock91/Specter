@@ -18,6 +18,7 @@ public class Client
     public bool IsArchived { get; set; } = false;
     public DateTime? ArchivedAt { get; set; } = null;
     public int CallAttemptCount { get; set; } = 0;
+    public int? CategoryId { get; set; } = null;
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
 }

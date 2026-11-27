@@ -72,6 +72,11 @@ public class ClientDatabaseService
                     conn.Execute("ALTER TABLE clients ADD COLUMN IsArchived INTEGER NOT NULL DEFAULT 0");
                 if (columns.Count > 0 && !columns.Any(c => c.Name == "ArchivedAt"))
                     conn.Execute("ALTER TABLE clients ADD COLUMN ArchivedAt TEXT");
+                // Category table
+                conn.CreateTable<ClientCategory>();
+                // Category FK migration on clients
+                if (columns.Count > 0 && !columns.Any(c => c.Name == "CategoryId"))
+                    conn.Execute("ALTER TABLE clients ADD COLUMN CategoryId INTEGER");
                 conn.CreateTable<Client>();
             });
             _isInitialized = true;
@@ -80,6 +85,35 @@ public class ClientDatabaseService
         {
             _initLock.Release();
         }
+    }
+
+    public async Task<List<ClientCategory>> GetCategoriesAsync(string username)
+    {
+        var conn = await GetConnectionAsync();
+        return await conn.Table<ClientCategory>()
+            .Where(c => c.Username == username)
+            .OrderBy(c => c.Name)
+            .ToListAsync();
+    }
+
+    public async Task<ClientCategory> AddCategoryAsync(string username, string name)
+    {
+        var conn = await GetConnectionAsync();
+        var cat = new ClientCategory { Username = username, Name = name };
+        await conn.InsertAsync(cat);
+        return cat;
+    }
+
+    public async Task DeleteCategoryAsync(int id)
+    {
+        var conn = await GetConnectionAsync();
+        await conn.DeleteAsync<ClientCategory>(id);
+    }
+
+    public async Task<ClientCategory?> GetCategoryAsync(int id)
+    {
+        var conn = await GetConnectionAsync();
+        return await conn.Table<ClientCategory>().Where(c => c.Id == id).FirstOrDefaultAsync();
     }
 
     public async Task<List<Client>> GetClientsAsync(string username)
@@ -133,9 +167,9 @@ public class ClientDatabaseService
         }
         // Editing a stale form must never overwrite a separately recorded attempt.
         return await conn.ExecuteAsync(
-            "UPDATE clients SET Title = ?, Name = ?, PhoneNumber = ?, ClientNumber = ?, Notes = ?, ScheduledDate = ?, ClosingChance = ?, UpdatedAt = ? WHERE Id = ? AND Username = ?",
+            "UPDATE clients SET Title = ?, Name = ?, PhoneNumber = ?, ClientNumber = ?, Notes = ?, ScheduledDate = ?, ClosingChance = ?, CategoryId = ?, UpdatedAt = ? WHERE Id = ? AND Username = ?",
             client.Title, client.Name, client.PhoneNumber, client.ClientNumber, client.Notes,
-            client.ScheduledDate, client.ClosingChance, client.UpdatedAt, client.Id, client.Username);
+            client.ScheduledDate, client.ClosingChance, client.CategoryId, client.UpdatedAt, client.Id, client.Username);
     }
 
     public async Task<int> LogCallAttemptAsync(int clientId, string username)

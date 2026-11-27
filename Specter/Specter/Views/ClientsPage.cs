@@ -10,6 +10,7 @@ public class ClientsPage : ContentPage
     private VerticalStackLayout _listLayout = null!;
     private Entry _searchEntry = null!;
     private List<Client> _clients = new();
+    private List<ClientCategory> _categories = new();
     private bool _isOpeningForm;
     private bool _isLoggingAttempt;
 
@@ -90,6 +91,7 @@ public class ClientsPage : ContentPage
     private async Task LoadClientsAsync()
     {
         _clients = await _clientDb.GetClientsAsync(_auth.CurrentUsername);
+        _categories = await _clientDb.GetCategoriesAsync(_auth.CurrentUsername);
         RenderList(_clients);
     }
 
@@ -155,6 +157,20 @@ public class ClientsPage : ContentPage
                 }
             }
         });
+
+        if (client.CategoryId.HasValue)
+        {
+            var cat = _categories.FirstOrDefault(c => c.Id == client.CategoryId.Value);
+            if (cat != null)
+            {
+                details.Children.Add(new Label
+                {
+                    Text = $" {cat.Name}",
+                    TextColor = Color.FromArgb("#FFD54F"),
+                    FontSize = 12
+                });
+            }
+        }
 
         if (!string.IsNullOrEmpty(client.PhoneNumber))
         {
@@ -231,6 +247,8 @@ public class ClientsPage : ContentPage
             Username = _auth.CurrentUsername
         };
 
+        var categories = await _clientDb.GetCategoriesAsync(_auth.CurrentUsername);
+
         var titleEntry = new Entry
         {
             Text = client.Title ?? "",
@@ -266,6 +284,55 @@ public class ClientsPage : ContentPage
             BackgroundColor = Color.FromArgb("#2A2A3E"),
             TextColor = Colors.White,
             PlaceholderColor = Color.FromArgb("#888")
+        };
+
+        // Category label
+        var categoryLabel = new Label
+        {
+            Text = AppStrings.CategoryLabel,
+            TextColor = Color.FromArgb("#AAAAAA"),
+            FontSize = 13
+        };
+
+        // Picker — first item is always "— No Category —"
+        var categoryPicker = new Picker
+        {
+            BackgroundColor = Color.FromArgb("#2A2A3E"),
+            TextColor = Colors.White,
+            TitleColor = Color.FromArgb("#888")
+        };
+        categoryPicker.Items.Add(AppStrings.NoCategoryOption);
+        foreach (var cat in categories)
+            categoryPicker.Items.Add(cat.Name);
+        // Select current category if editing
+        if (client.CategoryId.HasValue)
+        {
+            var idx = categories.FindIndex(c => c.Id == client.CategoryId.Value);
+            categoryPicker.SelectedIndex = idx >= 0 ? idx + 1 : 0;
+        }
+        else
+        {
+            categoryPicker.SelectedIndex = 0;
+        }
+
+        // "Add category" button
+        var addCategoryBtn = new Button
+        {
+            Text = AppStrings.AddCategory,
+            FontSize = 11,
+            HeightRequest = 30,
+            BackgroundColor = Color.FromArgb("#2A2A3E"),
+            TextColor = Color.FromArgb("#90CAF9"),
+            HorizontalOptions = LayoutOptions.Start
+        };
+        addCategoryBtn.Clicked += async (_, _) =>
+        {
+            string? newName = await DisplayPromptAsync(AppStrings.AddCategory, AppStrings.CategoryName);
+            if (string.IsNullOrWhiteSpace(newName)) return;
+            var created = await _clientDb.AddCategoryAsync(_auth.CurrentUsername, newName);
+            categories.Add(created);
+            categoryPicker.Items.Add(created.Name);
+            categoryPicker.SelectedIndex = categoryPicker.Items.Count - 1;
         };
 
         var notesEditor = new Editor
@@ -375,6 +442,9 @@ public class ClientsPage : ContentPage
                 nameEntry,
                 clientNumEntry,
                 phoneEntry,
+                categoryLabel,
+                categoryPicker,
+                addCategoryBtn,
                 copyTitleToNotesBtn,
                 notesEditor,
                 closingLabel,
@@ -532,6 +602,10 @@ public class ClientsPage : ContentPage
                 await DisplayAlert(AppStrings.Error, AppStrings.ClosingChanceError, AppStrings.Ok);
                 return;
             }
+            int pickerIdx = categoryPicker.SelectedIndex;
+            client.CategoryId = (pickerIdx > 0 && pickerIdx - 1 < categories.Count)
+                ? categories[pickerIdx - 1].Id
+                : (int?)null;
             await _clientDb.SaveClientAsync(client);
             await Navigation.PopAsync();
             await LoadClientsAsync();
